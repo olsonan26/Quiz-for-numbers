@@ -123,4 +123,3 @@ For setup, consent, questions, answers, progress, review, loading, results, reco
 - Important meaning is not carried by color alone.
 - Labels and errors work with keyboard and screen readers.
 - The layout works at 320–393px without horizontal overflow.
-

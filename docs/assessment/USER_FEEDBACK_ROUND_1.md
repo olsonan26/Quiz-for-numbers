@@ -1,6 +1,6 @@
 # User Feedback Round 1
 
-Date: 2026-07-29  
+Date: 2026-07-29
 Branch: `fix/plain-language-goal-first-experience`
 
 ## Feedback received
