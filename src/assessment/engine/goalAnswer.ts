@@ -4,35 +4,9 @@ import type {
   ConfidenceLabel,
   ConstructResult,
   Goal,
+  GoalAnswer,
   Recommendation
 } from "../domain";
-
-export interface DecisionGoalDetails {
-  usualStyle: string;
-  selfSabotage: string;
-  pauseSigns: string[];
-  method: string[];
-  examples: Array<{ title: string; situation: string; response: string }>;
-  checklist: string[];
-  sevenDayExperiment: string;
-}
-
-export interface GoalAnswer {
-  goal: Goal;
-  goalLabel: string;
-  wantedHelpWith: string;
-  heading: string;
-  directAnswer: string;
-  whatAnswersSuggest: string[];
-  whatHelps: string[];
-  whereYouGetStuck: string;
-  whatNotToDo: string;
-  realisticExample: string;
-  thisWeek: string;
-  constructIds: string[];
-  confidence: ConfidenceLabel;
-  decisionDetails?: DecisionGoalDetails;
-}
 
 const resultById = (results: ConstructResult[], id: string) =>
   results.find((result) => result.constructId === id);

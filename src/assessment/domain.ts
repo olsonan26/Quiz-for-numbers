@@ -240,12 +240,40 @@ export interface Recommendation {
   action: string;
   exampleLanguage: string;
   avoid: string;
+  whyItHelps: string;
   confidence: Confidence;
   impactBand: "low" | "moderate" | "high";
   effortBand: "low" | "moderate" | "high";
   trialPeriod: string;
   successSignal: string;
   isExperiment: boolean;
+}
+
+export interface DecisionGoalDetails {
+  usualStyle: string;
+  selfSabotage: string;
+  pauseSigns: string[];
+  method: string[];
+  examples: Array<{ title: string; situation: string; response: string }>;
+  checklist: string[];
+  sevenDayExperiment: string;
+}
+
+export interface GoalAnswer {
+  goal: Goal;
+  goalLabel: string;
+  wantedHelpWith: string;
+  heading: string;
+  directAnswer: string;
+  whatAnswersSuggest: string[];
+  whatHelps: string[];
+  whereYouGetStuck: string;
+  whatNotToDo: string;
+  realisticExample: string;
+  thisWeek: string;
+  constructIds: string[];
+  confidence: ConfidenceLabel;
+  decisionDetails?: DecisionGoalDetails;
 }
 
 export interface InteractionResult {
@@ -283,6 +311,7 @@ export interface AssessmentReport {
   versions: VersionSet;
   headline: string;
   summary: string;
+  goalAnswer: GoalAnswer;
   constructResults: ConstructResult[];
   contradictions: Contradiction[];
   chartAlignments: ChartAlignment[];

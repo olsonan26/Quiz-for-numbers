@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { ArrowLeft, CheckCircle2, Clock3, Save } from "lucide-react";
 import type { AssessmentSession } from "../assessment/domain";
+import { assessmentLimits, optionsForMode } from "../assessment/data/items";
+import { goalById } from "../assessment/data/goals";
 import { estimatedProgress } from "../assessment/engine/adaptive";
 import { advanceNavigation, currentQuestion, previousNavigation, selectDraftAnswer, selectedOptionId } from "../assessment/engine/navigation";
 
@@ -31,6 +33,8 @@ export function AssessmentFlow({ session, onChange, onPause, onReview }: Assessm
 
   const prompt = item.promptByMode[session.profile.mode];
   const selectedOption = selectedOptionId(session, item.id);
+  const options = optionsForMode(item, session.profile.mode);
+  const goal = goalById.get(session.profile.goal);
   const answer = (optionId: string) => onChange(selectDraftAnswer(session, optionId, new Date().toISOString()));
   const goNext = () => onChange(advanceNavigation(session, new Date().toISOString()));
   const goBack = () => {
@@ -69,7 +73,7 @@ export function AssessmentFlow({ session, onChange, onPause, onReview }: Assessm
           <h1>{prompt}</h1>
           <p className="question-help">Choose the option that best reflects repeated behavior, not one exceptional day.</p>
           <div className="answer-list" role="radiogroup" aria-label="Response options">
-            {item.options.map((option) => (
+            {options.map((option) => (
               <button
                 key={option.id}
                 className={`answer-option${selectedOption === option.id ? " is-selected" : ""}`}
@@ -85,6 +89,12 @@ export function AssessmentFlow({ session, onChange, onPause, onReview }: Assessm
           <div className="question-actions">
             <button className="button button-primary" onClick={goNext} disabled={!selectedOption}>Next</button>
           </div>
+          {session.responses.length >= assessmentLimits.minimum - 6 && (
+            <aside className="goal-reminder near-end-reminder">
+              <strong>{goal?.reminder}</strong>
+              <span>{goal?.reportPromise}</span>
+            </aside>
+          )}
           <p className="sr-only" aria-live="polite">{selectedOption ? "Answer selected. Activate Next to continue." : "Choose an answer to enable Next."}</p>
         </section>
       </section>

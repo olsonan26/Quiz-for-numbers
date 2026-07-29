@@ -1,7 +1,7 @@
 import { ArrowLeft, Sparkles } from "lucide-react";
 import type { AssessmentSession } from "../assessment/domain";
 import { goalById } from "../assessment/data/goals";
-import { itemById } from "../assessment/data/items";
+import { itemById, optionsForMode } from "../assessment/data/items";
 
 interface ReviewAnswersProps {
   session: AssessmentSession;
@@ -52,7 +52,7 @@ export function ReviewAnswers({ session, onChange, onBack, onGenerate }: ReviewA
                   })
                 }
               >
-                {item.options.map((option) => <option value={option.id} key={option.id}>{option.label}</option>)}
+                {optionsForMode(item, session.profile.mode).map((option) => <option value={option.id} key={option.id}>{option.label}</option>)}
               </select>
             </label>
           );

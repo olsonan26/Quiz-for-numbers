@@ -12,6 +12,7 @@ import { calculateProprietaryProfile, costarProvider } from "../../proprietary/a
 import { assertSafeOutput, publicLimitations } from "../safety/safety";
 import { attachContradictions, classifyChartAlignments, detectBehavioralContradictions } from "./contradiction";
 import { scoreAssessment } from "./scoring";
+import { buildGoalAnswer } from "./goalAnswer";
 
 const confidenceEligible = (confidence: Confidence) =>
   confidence.label === "strong" || confidence.label === "moderate";
@@ -121,6 +122,7 @@ function buildRecommendations(results: ConstructResult[], session: AssessmentSes
       action: template.action,
       exampleLanguage: template.example,
       avoid: template.avoid,
+      whyItHelps: template.whyItHelps,
       confidence: result.confidence,
       impactBand: template.impact,
       effortBand: template.effort,
@@ -178,6 +180,7 @@ export function generateReport(session: AssessmentSession): AssessmentReport {
   results = attachContradictions(results, contradictions);
   const interactions = buildInteractions(results);
   const recommendations = buildRecommendations(results, session);
+  const goalAnswer = buildGoalAnswer(session, results, recommendations);
   const strongest = [...results]
     .filter((result) => result.confidence.label !== "insufficient")
     .sort((a, b) => b.confidence.internalScore - a.confidence.internalScore)[0];
@@ -197,6 +200,7 @@ export function generateReport(session: AssessmentSession): AssessmentReport {
     versions: VERSIONS,
     headline: reportHeadline(results),
     summary,
+    goalAnswer,
     constructResults: results,
     contradictions,
     chartAlignments,
