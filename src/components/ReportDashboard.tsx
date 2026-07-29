@@ -18,6 +18,7 @@ import {
   PatternWheel,
   ShareCard
 } from "./ReportVisuals";
+import { ProprietaryDetails } from "./ProprietaryDetails";
 
 interface ReportDashboardProps {
   report: AssessmentReport;
@@ -177,6 +178,8 @@ export function ReportDashboard({ report, onHome, onDelete, onFeedback }: Report
         <p>Open this section when you want the rest of the charts. You do not need them to use the main answer above.</p>
         <div className="report-grid">{secondaryVisuals}</div>
       </details>
+
+      <ProprietaryDetails report={report} />
 
       <section className="report-module evidence-ledger" id="evidence">
         <header><p className="eyebrow">Details</p><h2>Evidence and limits</h2><p>This section records the exact versions and limits behind the report.</p></header>

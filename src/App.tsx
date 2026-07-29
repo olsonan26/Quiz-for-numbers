@@ -87,9 +87,9 @@ export function App() {
     return (
       <main id="main-content" className="generating-shell" aria-live="polite">
         <div className="generating-mark" aria-hidden="true"><span /><span /><span /></div>
-        <p className="eyebrow">Building the evidence view</p>
-        <h1>Connecting patterns with context.</h1>
-        <p>The deterministic engine is comparing baseline, stress, contradictions, confidence, and founder-authored chart hypotheses. No model call is being made.</p>
+        <p className="eyebrow">Making your report</p>
+        <h1>Turning your answers into useful next steps.</h1>
+        <p>We are checking everyday answers, stress answers, mixed patterns, and the name and number source. Everything happens in this browser.</p>
       </main>
     );
   }
@@ -118,7 +118,7 @@ export function App() {
           </div>
           <div className="trust-row">
             <span><LockKeyhole size={17} aria-hidden="true" /> Stays in your browser</span>
-            <span><BrainCircuit size={17} aria-hidden="true" /> Deterministic scoring</span>
+            <span><BrainCircuit size={17} aria-hidden="true" /> Same scoring rules every time</span>
             <span><ShieldCheck size={17} aria-hidden="true" /> Developmental, not diagnostic</span>
           </div>
         </div>
@@ -156,10 +156,10 @@ export function App() {
         <header><p className="eyebrow">A five-source model</p><h2>Recognition is the start.<br />Useful action is the standard.</h2></header>
         <div className="difference-grid">
           <article><span>01</span><h3>Behavior</h3><p>Concrete questions about what happens, not flattering identity prompts.</p></article>
-          <article><span>02</span><h3>Context</h3><p>Baseline, stress, relationship, and current-state evidence stay distinct.</p></article>
-          <article><span>03</span><h3>Contradiction</h3><p>Opposing evidence becomes a finding to explore, not noise to hide.</p></article>
-          <article><span>04</span><h3>Chart hypotheses</h3><p>Founder-authored number and name meanings can be supported—or rejected.</p></article>
-          <article><span>05</span><h3>Practical translation</h3><p>Every recommendation links back to a finding, confidence level, and limitation.</p></article>
+          <article><span>02</span><h3>Situation</h3><p>Everyday life, stress, relationships, and recent changes stay separate.</p></article>
+          <article><span>03</span><h3>Mixed answers</h3><p>When answers disagree, the report shows the difference instead of hiding it.</p></article>
+          <article><span>04</span><h3>Name and numbers</h3><p>Alex Olson’s source meanings are compared with the answers and may or may not match.</p></article>
+          <article><span>05</span><h3>Next steps</h3><p>Each main suggestion includes what to try, an example, what to avoid, and why it may help.</p></article>
         </div>
       </section>
 

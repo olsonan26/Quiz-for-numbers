@@ -5,10 +5,10 @@ import { goalDefinitions } from "../assessment/data/goals";
 import { profileContextSchema } from "../assessment/schemas";
 
 const modes: Array<{ id: AssessmentMode; title: string; detail: string }> = [
-  { id: "self", title: "Myself", detail: "Reflect on your own observable patterns." },
-  { id: "child-observer", title: "My child", detail: "A developmental guardian-observer perspective." },
-  { id: "partner-observer", title: "My partner", detail: "Your observations, not access to their inner state." },
-  { id: "other-observer", title: "Someone else", detail: "Use a nickname and share only with consent." }
+  { id: "self", title: "Myself", detail: "Answer about what you usually do." },
+  { id: "child-observer", title: "My child", detail: "Answer only about behavior you have seen." },
+  { id: "partner-observer", title: "My partner", detail: "Answer only about behavior you have seen." },
+  { id: "other-observer", title: "Someone else", detail: "Use a nickname and answer only about behavior you have seen." }
 ];
 
 const receiverStyles: Array<{ id: ReceiverStyle; label: string }> = [
