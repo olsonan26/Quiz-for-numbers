@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { cloneElement, useState, type ReactElement } from "react";
 import { Download, Home, Printer, Shield, Trash2 } from "lucide-react";
 import type { AssessmentReport, FeedbackRecord } from "../assessment/domain";
 import { goalById } from "../assessment/data/goals";
@@ -35,7 +35,7 @@ export function ReportDashboard({ report, onHome, onDelete, onFeedback }: Report
   const [submitted, setSubmitted] = useState(false);
   const goal = goalById.get(report.profile.goal);
 
-  const visualModules: Record<string, React.ReactNode> = {
+  const visualModules: Record<string, ReactElement> = {
     "pattern-wheel": <PatternWheel results={report.constructResults} />,
     "baseline-stress": <BaselineStress results={report.constructResults} />,
     motivation: <MotivationHierarchy report={report} />,
@@ -51,10 +51,12 @@ export function ReportDashboard({ report, onHome, onDelete, onFeedback }: Report
     "share-card": <ShareCard report={report} />
   };
   const primaryVisualIds = [...new Set(goal?.primaryVisualIds ?? ["pattern-wheel", "baseline-stress", "interaction-map"])];
-  const primaryVisuals = primaryVisualIds.map((id) => visualModules[id]).filter(Boolean);
+  const primaryVisuals = primaryVisualIds
+    .map((id) => visualModules[id] ? cloneElement(visualModules[id], { key: id }) : null)
+    .filter(Boolean);
   const secondaryVisuals = Object.entries(visualModules)
     .filter(([id]) => !primaryVisualIds.includes(id))
-    .map(([, visual]) => visual);
+    .map(([id, visual]) => cloneElement(visual, { key: id }));
 
   const submitFeedback = () => {
     onFeedback({
