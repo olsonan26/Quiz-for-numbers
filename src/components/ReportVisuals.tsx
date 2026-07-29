@@ -43,7 +43,6 @@ function VisualSection({
   return (
     <section className="report-module visual-module" id={id} aria-labelledby={`${id}-title`}>
       <header>
-        <p className="eyebrow">Pattern view</p>
         <h2 id={`${id}-title`}>{title}</h2>
         <p>{question}</p>
       </header>
@@ -59,8 +58,8 @@ export function PatternWheel({ results }: { results: ConstructResult[] }) {
   return (
     <VisualSection
       id="pattern-wheel"
-      title="Human Pattern Wheel"
-      question="Which broad patterns appear most strongly in the available behavioral evidence?"
+      title="Your Main Patterns"
+      question="Which patterns show up most clearly in your answers?"
       rows={[["Pattern", "Expression", "Confidence"], ...shown.map((result) => [result.label, bandLabel(result.expressionBand), result.confidence.label])]}
     >
       <div className="wheel-wrap">
@@ -95,8 +94,8 @@ export function BaselineStress({ results }: { results: ConstructResult[] }) {
   return (
     <VisualSection
       id="baseline-stress"
-      title="Baseline vs Stress Profile"
-      question="How does expression change when pressure rises?"
+      title="How You Change Under Stress"
+      question="What looks different when pressure rises?"
       rows={[["Pattern", "Baseline", "Under pressure", "Shift", "Confidence"], ...shown.map((result) => [result.label, bandLabel(result.baselineBand), bandLabel(result.stressBand), result.shiftDirection, result.confidence.label])]}
     >
       <div className="slope-chart" aria-hidden="true">
@@ -130,8 +129,8 @@ export function MotivationHierarchy({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="motivation"
-      title="Motivation Hierarchy"
-      question="Which conditions appear most likely to support sustained effort?"
+      title="What Motivates You"
+      question="Which conditions are most likely to help effort last?"
       rows={[["Condition", "Expression", "Evidence"], ...ranked.map((result) => [result.label, bandLabel(result.expressionBand), result.evidenceIds.length])]}
     >
       <div className="ranked-bars" aria-hidden="true">
@@ -160,8 +159,8 @@ export function CommunicationProfile({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="communication"
-      title="Communication Profile"
-      question="How does this person tend to process and receive important information?"
+      title="How You Communicate"
+      question="How do you tend to take in and respond to important information?"
       rows={[["Continuum", "Expression", "Practical implication"], ...results.map((result) => [result.label, bandLabel(result.expressionBand), result.practicalImplication])]}
     >
       <div className="continuum-list" aria-hidden="true">
@@ -196,8 +195,38 @@ export function ConflictMap({ report }: { report: AssessmentReport }) {
         {steps.map((step, index) => <li key={step}><span>{index + 1}</span><strong>{step}</strong></li>)}
       </ol>
       <div className="split-callout">
-        <div><span>Helpful response</span><p>Name the specific issue early and agree on a return time if regulation drops.</p></div>
-        <div><span>Likely friction</span><p>Global judgments, forced immediacy, or interpreting space as indifference.</p></div>
+        <div><span>Helpful response</span><p>Name the specific issue early and agree when to return if either person is too upset to continue.</p></div>
+        <div><span>Likely friction</span><p>Judging the whole person, forcing an immediate answer, or treating a pause as lack of care.</p></div>
+      </div>
+    </VisualSection>
+  );
+}
+
+export function DecisionStyle({ report }: { report: AssessmentReport }) {
+  const decision = report.constructResults.find((result) => result.constructId === "HUE-07");
+  const certainty = report.constructResults.find((result) => result.constructId === "HUE-09");
+  const autonomy = report.constructResults.find((result) => result.constructId === "HUE-04");
+  const rows = [
+    ["Decision area", "Current pattern", "Support"],
+    ["Choice pace", decision ? bandLabel(decision.expressionBand) : "not clear yet", decision?.confidence.label ?? "insufficient"],
+    ["Need for clear answers", certainty ? bandLabel(certainty.expressionBand) : "not clear yet", certainty?.confidence.label ?? "insufficient"],
+    ["Need to own the choice", autonomy ? bandLabel(autonomy.expressionBand) : "not clear yet", autonomy?.confidence.label ?? "insufficient"]
+  ];
+  return (
+    <VisualSection
+      id="decision-style"
+      title="Decision Style"
+      question="What matters most when you make a choice?"
+      rows={rows}
+    >
+      <div className="decision-style-list">
+        {rows.slice(1).map(([label, band, confidence]) => (
+          <div key={label}>
+            <strong>{label}</strong>
+            <span>{band}</span>
+            <small>{confidence} support</small>
+          </div>
+        ))}
       </div>
     </VisualSection>
   );
@@ -211,14 +240,15 @@ export function NeedsSensitivities({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="needs"
-      title="Needs and Sensitivities Balance"
-      question="Which needs appear strongest, and what may disrupt them?"
+      title="What You Need and Notice"
+      question="Which needs and sensitivities stand out in your answers?"
       rows={[["Type", "Pattern", "Expression"], ...needs.map((result) => ["Need", result.label, bandLabel(result.expressionBand)]), ...sensitivities.map((result) => ["Sensitivity", result.label, bandLabel(result.expressionBand)])]}
     >
-      <div className="paired-panels" aria-hidden="true">
-        <div><h3>Core needs</h3>{needs.map((result) => <span key={result.constructId}><b>{result.label}</b><i data-band={result.expressionBand} /></span>)}</div>
-        <div><h3>Primary sensitivities</h3>{sensitivities.map((result) => <span key={result.constructId}><b>{result.label}</b><i data-band={result.expressionBand} /></span>)}</div>
+      <div className="paired-panels">
+        <div><h3>Needs</h3>{needs.map((result) => <span key={result.constructId}><b>{result.label}</b><em>{bandLabel(result.expressionBand)}</em><i aria-hidden="true"><u style={{ width: `${bandPosition[result.expressionBand]}%` }} /></i></span>)}</div>
+        <div><h3>Sensitivities</h3>{sensitivities.map((result) => <span key={result.constructId}><b>{result.label}</b><em>{bandLabel(result.expressionBand)}</em><i aria-hidden="true"><u style={{ width: `${bandPosition[result.expressionBand]}%` }} /></i></span>)}</div>
       </div>
+      <p className="band-legend">Lower means it showed up less often. Moderate means it was in the middle. Higher means it showed up more often. “Changes with the situation” means the setting mattered.</p>
     </VisualSection>
   );
 }
@@ -227,8 +257,8 @@ export function InteractionMap({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="interaction-map"
-      title="Pattern Interaction Map"
-      question="Which combinations create important strengths and tensions?"
+      title="How Your Patterns Work Together"
+      question="Which combinations may create strengths or tension?"
       rows={[["Interaction", "Strength", "Friction", "Leverage"], ...report.interactions.map((item) => [item.title, item.strengthExpression, item.frictionExpression, item.actionLeverage])]}
     >
       <div className="interaction-grid">
@@ -250,8 +280,8 @@ export function ChartAlignmentView({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="chart-alignment"
-      title="Chart vs Behavior Alignment"
-      question="Which founder-authored name and number hypotheses were supported by observed behavior?"
+      title="How Name and Number Ideas Compare"
+      question="Which source ideas matched your answers, and which did not?"
       rows={[["Source hypothesis", "Construct", "Classification", "Behavioral evidence"], ...report.chartAlignments.map((alignment) => [alignment.hypothesisId, alignment.constructId, alignment.classification, alignment.evidenceIds.length])]}
     >
       <div className="alignment-table-wrap">
@@ -277,8 +307,8 @@ export function ConfidencePanel({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="confidence"
-      title="Evidence and Confidence Panel"
-      question="How much evidence supports each conclusion, and what limits certainty?"
+      title="How Certain These Results Are"
+      question="How much support is there for each result?"
       rows={[["Pattern", "Confidence", "Evidence", "Contradictions", "Primary reason"], ...report.constructResults.map((result) => [result.label, result.confidence.label, result.evidenceIds.length, result.contradictionIds.length, result.confidence.reasons[0] ?? ""])]}
     >
       <div className="confidence-grid">
@@ -304,8 +334,8 @@ export function GrowthMatrix({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="growth"
-      title="Growth Leverage Matrix"
-      question="Which practical experiments may offer useful payoff for the effort involved?"
+      title="What to Try First"
+      question="Which small experiments may be most useful?"
       rows={[["Recommendation", "Impact", "Effort", "Trial"], ...report.recommendations.map((item) => [item.title, item.impactBand, item.effortBand, item.trialPeriod])]}
     >
       <div className="matrix-grid">
@@ -331,8 +361,8 @@ export function EnvironmentFit({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="environment"
-      title="Environment Fit Dashboard"
-      question="Which environmental conditions may help this person function well?"
+      title="Settings That May Fit You"
+      question="Which conditions may make it easier to do well?"
       rows={[["Left condition", "Right condition", "Position", "Confidence"], ...dimensions.map(([left, right, id]) => {
         const result = report.constructResults.find((candidate) => candidate.constructId === id);
         return [left, right, result ? bandLabel(result.expressionBand) : "insufficient", result?.confidence.label ?? "insufficient"];
@@ -356,8 +386,8 @@ export function ShareCard({ report }: { report: AssessmentReport }) {
   return (
     <VisualSection
       id="share-card"
-      title="How to Work With Me"
-      question="What concise, user-controlled guidance is safe and useful to share?"
+      title="A Shareable Guide"
+      question="What short guidance could be useful to share?"
       rows={[["Prompt", "Shareable guidance"], ["I work best when", autonomy?.action ?? "Expectations and choices are clear."], ["When stressed", stress?.stressNarrative ?? "I may need a pause before repair."], ["Feedback", feedback?.exampleLanguage ?? "Be specific and private."], ["Please do not assume", "A need for space means a lack of care."], ["Reset", "Name the state, reduce the load, and choose one next step."]]}
     >
       <article className="share-card">

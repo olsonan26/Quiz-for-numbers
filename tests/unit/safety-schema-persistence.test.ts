@@ -36,4 +36,17 @@ describe("safety, schemas, and local-first persistence", () => {
     expect(localRepository.loadSession()).toBeNull();
     expect(localRepository.listReports()).toHaveLength(0);
   });
+
+  it("restarts unfinished sessions from an older assessment version instead of mixing item versions", () => {
+    const legacy = createDemoSession();
+    localStorage.setItem("hue.current-session.v1", JSON.stringify({
+      ...legacy,
+      status: "in-progress",
+      versions: { ...legacy.versions, assessment: "hue-v1.0.0" }
+    }));
+
+    expect(localRepository.loadSession()).toBeNull();
+    expect(localRepository.getSessionMigrationNotice()).toMatch(/older question set/i);
+    expect(localStorage.getItem("hue.current-session.v1")).toBeNull();
+  });
 });

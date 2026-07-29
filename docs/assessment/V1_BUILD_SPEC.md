@@ -9,7 +9,7 @@ Human Pattern Profile is a local-first, developmental assessment for understandi
 - Constructs: HUE-01 through HUE-12 exactly as defined in the governing construct map.
 - Candidate bank: 72 original items; 36 minimum, 42 typical, 48 maximum.
 - Completion target: 8–12 minutes in real pilot use.
-- Reports: all 15 result modules and all 12 visual modules required by the governing specification.
+- Reports: a goal-specific direct answer and recommendations first, followed by two or three relevant visuals; the remaining full-profile modules are progressively disclosed.
 - Storage: browser `localStorage` behind a typed persistence interface; no remote transmission.
 - AI: no AI dependency in V1. Structured deterministic output is complete by itself.
 - Status language: developmental research prototype, not validated, clinical, diagnostic, predictive, or suitable for high-stakes decisions.
@@ -18,7 +18,7 @@ Human Pattern Profile is a local-first, developmental assessment for understandi
 
 ## Definition of done
 
-A user can start, consent, choose mode and goal, enter minimal context, answer an adaptive path, pause/resume, review, score, inspect accessible visual results, submit corrections, export, print/share selectively, and delete all local data. Results preserve all engine/content/proprietary versions and work with no network or AI service.
+A user can start, consent, choose mode and goal, enter minimal context, select and change an answer before pressing Next, move backward without losing data, pause/resume at the exact question, review, score, receive the chosen goal's direct answer first, inspect accessible visual results, compare the optional founder-source layer, submit corrections, export, print/share selectively, and delete all local data. Results preserve all engine/content/proprietary/report versions and work with no network or AI service.
 
 ## World-class benchmark
 

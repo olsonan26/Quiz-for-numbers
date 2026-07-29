@@ -31,3 +31,7 @@ Implementation PR #2 merged as `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`. A cle
 ## 2026-07-29 — Public mobile release
 
 The user authorized a shareable mobile link. Vercel project `quiz-for-numbers` deployed the prebuilt `main` artifact and assigned <https://quiz-for-numbers.vercel.app>. Direct HTML verification returned HTTP 200 with the expected production bundle hashes. A live Pixel 5-sized browser completed the assessment, rendered all twelve result modules, preserved the deterministic no-AI path, and found no landing or report document overflow. Vercel could not automatically connect the GitHub repository because the Vercel account lacks a GitHub login connection, so production releases remain manual until that account connection is added.
+
+## 2026-07-29 — Feedback Round 1 repair boundary
+
+Direct usability feedback found that the assessment advances before users can confirm an answer, uses abstract wording, presents too many equal-weight graphs, and does not answer the selected goal soon enough. The repair preserves construct IDs, scoring direction and weights, confidence, contradiction rules, proprietary calculations, safety, and privacy. It will version question wording and report interpretation separately, restart incompatible unfinished V1 sessions instead of mixing content versions, make navigation history explicit, and present Alex Olson's existing number/name meanings as a clearly labeled and falsifiable hypothesis layer rather than hiding them in technical metadata.

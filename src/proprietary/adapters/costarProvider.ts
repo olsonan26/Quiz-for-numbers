@@ -12,7 +12,8 @@ import {
   type SourceProfileInput
 } from "../calculations/numerology";
 import { calculatePMEI } from "../calculations/pmei";
-import { meaningFor } from "../meanings/nameMeanings";
+import { calledNameMeaningFor } from "../meanings/calledNameMeanings";
+import { coreMeaningFor } from "../meanings/coreMeanings";
 
 export interface ProprietaryChartProvider {
   readonly providerId: string;
@@ -68,6 +69,14 @@ export const costarProvider: ProprietaryChartProvider = {
       value: calledName.value,
       sourcePath: "services/numerology.ts#getCalledNameValue"
     });
+    traces.push({
+      id: "TRACE-PMEI",
+      label: "PMEI / Lettrology",
+      inputSummary: `Letters ${pmei.totalLetters}; physical ${pmei.planes.physical}, mental ${pmei.planes.mental}, emotional ${pmei.planes.emotional}, intuitive ${pmei.planes.intuitive}; tone ${pmei.tone.vowels} vowels and ${pmei.tone.consonants} consonants; cross matches ${pmei.crossMatches.map((match) => `${match.plane}=${match.totalEquals}`).join(", ") || "none"}.`,
+      compound: `checksum ${pmei.qaChecksumPassed ? "passed" : "failed"}`,
+      value: pmei.totalLetters,
+      sourcePath: "services/pmeiEngine.ts"
+    });
 
     return {
       providerId: this.providerId,
@@ -78,12 +87,12 @@ export const costarProvider: ProprietaryChartProvider = {
         name: number.name,
         value: number.value,
         compound: number.compound,
-        sourceMeaning: meaningFor(number.value).condensed
+        sourceMeaning: coreMeaningFor(number.name, number.value)
       })),
       calledName: {
         value: calledName.value,
         compound: calledName.compound,
-        sourceMeaning: meaningFor(calledName.value).condensed
+        sourceMeaning: calledNameMeaningFor(calledName.value).full
       },
       pmei: {
         planes: pmei.planes,

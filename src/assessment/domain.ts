@@ -22,19 +22,21 @@ export interface VersionSet {
   proprietaryCalculation: string;
   proprietaryInterpretation: string;
   interpretation: string;
+  report: string;
   visualization: string;
   safety: string;
 }
 
 export const VERSIONS: VersionSet = {
-  assessment: "hue-v1.0.0",
-  itemBank: "pilot-72-v1.0.0",
+  assessment: "hue-v1.1.0",
+  itemBank: "pilot-72-v1.1.0",
   scoring: "deterministic-v1.0.0",
   chartMapping: "costar-hypotheses-v1.0.0",
   proprietaryCalculation: "legacy-costar-1.0.0",
   proprietaryInterpretation: "founder-meanings-1.0.0",
-  interpretation: "templates-v1.0.0",
-  visualization: "visuals-v1.0.0",
+  interpretation: "templates-v1.1.0",
+  report: "reports-v1.1.0",
+  visualization: "visuals-v1.1.0",
   safety: "safety-v1.0.0"
 };
 
@@ -103,8 +105,21 @@ export interface ProfileContext {
 
 export interface ResponseRecord {
   itemId: string;
+  itemVersion: string;
   optionId: string;
   answeredAt: string;
+}
+
+export interface DraftResponse {
+  itemId: string;
+  optionId: string;
+  selectedAt: string;
+}
+
+export interface AssessmentNavigation {
+  history: string[];
+  currentIndex: number;
+  draftResponses: Record<string, DraftResponse>;
 }
 
 export interface AssessmentSession {
@@ -112,6 +127,7 @@ export interface AssessmentSession {
   status: "in-progress" | "review" | "complete";
   profile: ProfileContext;
   responses: ResponseRecord[];
+  navigation: AssessmentNavigation;
   startedAt: string;
   updatedAt: string;
   versions: VersionSet;
@@ -224,12 +240,40 @@ export interface Recommendation {
   action: string;
   exampleLanguage: string;
   avoid: string;
+  whyItHelps: string;
   confidence: Confidence;
   impactBand: "low" | "moderate" | "high";
   effortBand: "low" | "moderate" | "high";
   trialPeriod: string;
   successSignal: string;
   isExperiment: boolean;
+}
+
+export interface DecisionGoalDetails {
+  usualStyle: string;
+  selfSabotage: string;
+  pauseSigns: string[];
+  method: string[];
+  examples: Array<{ title: string; situation: string; response: string }>;
+  checklist: string[];
+  sevenDayExperiment: string;
+}
+
+export interface GoalAnswer {
+  goal: Goal;
+  goalLabel: string;
+  wantedHelpWith: string;
+  heading: string;
+  directAnswer: string;
+  whatAnswersSuggest: string[];
+  whatHelps: string[];
+  whereYouGetStuck: string;
+  whatNotToDo: string;
+  realisticExample: string;
+  thisWeek: string;
+  constructIds: string[];
+  confidence: ConfidenceLabel;
+  decisionDetails?: DecisionGoalDetails;
 }
 
 export interface InteractionResult {
@@ -267,6 +311,7 @@ export interface AssessmentReport {
   versions: VersionSet;
   headline: string;
   summary: string;
+  goalAnswer: GoalAnswer;
   constructResults: ConstructResult[];
   contradictions: Contradiction[];
   chartAlignments: ChartAlignment[];

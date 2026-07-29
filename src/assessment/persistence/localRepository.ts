@@ -1,8 +1,10 @@
 import type { AssessmentReport, AssessmentSession, FeedbackRecord } from "../domain";
-import { parseStored, sessionSchema } from "../schemas";
+import { VERSIONS } from "../domain";
+import { sessionSchema } from "../schemas";
 
 const KEYS = {
   session: "hue.current-session.v1",
+  sessionMigration: "hue.current-session.migration.v1",
   reports: "hue.reports.v1",
   feedback: "hue.feedback.v1"
 } as const;
@@ -10,6 +12,8 @@ const KEYS = {
 export interface AssessmentRepository {
   saveSession(session: AssessmentSession): void;
   loadSession(): AssessmentSession | null;
+  getSessionMigrationNotice(): string | null;
+  clearSessionMigrationNotice(): void;
   deleteSession(): void;
   saveReport(report: AssessmentReport): void;
   listReports(): AssessmentReport[];
@@ -33,7 +37,34 @@ export const localRepository: AssessmentRepository = {
     localStorage.setItem(KEYS.session, JSON.stringify(session));
   },
   loadSession() {
-    return parseStored(sessionSchema, localStorage.getItem(KEYS.session)) as AssessmentSession | null;
+    const raw = localStorage.getItem(KEYS.session);
+    if (!raw) return null;
+    try {
+      const candidate: unknown = JSON.parse(raw);
+      const parsed = sessionSchema.safeParse(candidate);
+      const versions = typeof candidate === "object" && candidate !== null && "versions" in candidate
+        ? (candidate as { versions?: Record<string, unknown> }).versions
+        : undefined;
+      const currentVersion = parsed.success && Object.entries(VERSIONS).every(
+        ([key, version]) => parsed.data.versions[key] === version
+      );
+      if (currentVersion) return parsed.data as unknown as AssessmentSession;
+      const inProgress = typeof candidate === "object" && candidate !== null
+        && (candidate as { status?: unknown }).status !== "complete";
+      if (inProgress && versions) {
+        localStorage.removeItem(KEYS.session);
+        localStorage.setItem(KEYS.sessionMigration, "Your unfinished assessment used an older question set. To keep one result from using mixed versions, please start it again. Completed reports are still saved.");
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  },
+  getSessionMigrationNotice() {
+    return localStorage.getItem(KEYS.sessionMigration);
+  },
+  clearSessionMigrationNotice() {
+    localStorage.removeItem(KEYS.sessionMigration);
   },
   deleteSession() {
     localStorage.removeItem(KEYS.session);

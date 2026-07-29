@@ -29,12 +29,12 @@ function directionFor(baseline: number, stress: number, baselineCount: number, s
 }
 
 const language = {
-  lower: "shows this pattern less often than the other available expressions",
-  moderate: "uses this pattern selectively rather than at one consistent extreme",
-  higher: "shows this pattern often across the situations described",
-  insufficient: "does not yet have enough observed evidence",
-  "context-dependent": "changes meaningfully by context",
-  conflicting: "contains credible evidence in opposing directions"
+  lower: "shows this pattern less often",
+  moderate: "shows this pattern some of the time",
+  higher: "shows this pattern often",
+  insufficient: "does not have enough answers yet",
+  "context-dependent": "shows this pattern differently in different situations",
+  conflicting: "has answers that point in different directions"
 } satisfies Record<ExpressionBand, string>;
 
 export function scoreAssessment(session: AssessmentSession): ConstructResult[] {
@@ -81,11 +81,14 @@ export function scoreAssessment(session: AssessmentSession): ConstructResult[] {
     });
 
     const subject = session.profile.mode === "self" ? "You" : session.profile.displayName;
-    const baselineNarrative = `${subject} ${language[baseBand]} in ordinary conditions.`;
+    const ordinaryLanguage = session.profile.mode === "self"
+      ? language[baseBand].replace(/^shows/, "show").replace(/^has /, "have ")
+      : language[baseBand];
+    const baselineNarrative = `${subject} ${ordinaryLanguage} in ordinary conditions.`;
     const stressNarrative =
       stressBand === "insufficient"
-        ? "Stress-specific evidence is limited, so no stress shift is asserted."
-        : `Under pressure, the available answers point to ${stressBand} expression.`;
+        ? "There are not enough stress answers to describe a clear change."
+        : `Under pressure, this pattern appears ${stressBand}.`;
 
     return {
       constructId: construct.id,
@@ -100,8 +103,8 @@ export function scoreAssessment(session: AssessmentSession): ConstructResult[] {
       contradictionIds: [],
       baselineNarrative,
       stressNarrative,
-      misunderstandingNarrative: `Others may mistake a ${expressionBand} expression for a fixed identity; the evidence describes observed patterns, not character or worth.`,
-      practicalImplication: `Use this finding as an observation prompt and test whether it remains true in more than one setting.`,
+      misunderstandingNarrative: `This ${expressionBand} result describes current answers. It is not a fixed identity or a judgment of character.`,
+      practicalImplication: "Notice whether this pattern stays true in more than one setting.",
       limitation:
         confidence.label === "strong"
           ? undefined

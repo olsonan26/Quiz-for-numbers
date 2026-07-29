@@ -1,25 +1,14 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ShieldCheck } from "lucide-react";
 import type { AssessmentMode, Goal, ProfileContext, ReceiverStyle } from "../assessment/domain";
+import { goalDefinitions } from "../assessment/data/goals";
 import { profileContextSchema } from "../assessment/schemas";
 
 const modes: Array<{ id: AssessmentMode; title: string; detail: string }> = [
-  { id: "self", title: "Myself", detail: "Reflect on your own observable patterns." },
-  { id: "child-observer", title: "My child", detail: "A developmental guardian-observer perspective." },
-  { id: "partner-observer", title: "My partner", detail: "Your observations, not access to their inner state." },
-  { id: "other-observer", title: "Someone else", detail: "Use a nickname and share only with consent." }
-];
-
-const goals: Array<{ id: Goal; label: string }> = [
-  { id: "communication", label: "Communication" },
-  { id: "motivation", label: "Motivation" },
-  { id: "emotional-reactions", label: "Emotional reactions" },
-  { id: "conflict", label: "Conflict" },
-  { id: "decision-making", label: "Decision-making" },
-  { id: "stress-patterns", label: "Stress patterns" },
-  { id: "strengths", label: "Strengths" },
-  { id: "direction", label: "Direction and fit" },
-  { id: "overall", label: "Overall understanding" }
+  { id: "self", title: "Myself", detail: "Answer about what you usually do." },
+  { id: "child-observer", title: "My child", detail: "Answer only about behavior you have seen." },
+  { id: "partner-observer", title: "My partner", detail: "Answer only about behavior you have seen." },
+  { id: "other-observer", title: "Someone else", detail: "Use a nickname and answer only about behavior you have seen." }
 ];
 
 const receiverStyles: Array<{ id: ReceiverStyle; label: string }> = [
@@ -69,7 +58,7 @@ export function SetupWizard({ onComplete, onCancel }: SetupWizardProps) {
     };
     const parsed = profileContextSchema.safeParse(profile);
     if (!consented) {
-      setError("Please confirm the assessment and local-storage consent.");
+      setError("Please confirm that you understand how this assessment works and that it saves in this browser.");
       return;
     }
     if (!parsed.success) {
@@ -123,18 +112,19 @@ export function SetupWizard({ onComplete, onCancel }: SetupWizardProps) {
 
         {step === 1 && (
           <>
-            <p className="eyebrow">Set the priority</p>
-            <h1>What would be most useful?</h1>
-            <p className="lede">Your goal changes question priority and report order—not scoring rules.</p>
+            <p className="eyebrow">Choose your goal</p>
+            <h1>What do you want help with?</h1>
+            <p className="lede">Your answer puts the most useful questions and report sections first. It does not change how answers are scored.</p>
             <div className="pill-grid">
-              {goals.map((item) => (
+              {goalDefinitions.map((item) => (
                 <button
                   key={item.id}
                   className={`select-pill ${goal === item.id ? "selected" : ""}`}
                   onClick={() => setGoal(item.id)}
                   aria-pressed={goal === item.id}
                 >
-                  {item.label}
+                  <strong>{item.label}</strong>
+                  <span>{item.setupQuestion}</span>
                 </button>
               ))}
             </div>
@@ -207,9 +197,9 @@ export function SetupWizard({ onComplete, onCancel }: SetupWizardProps) {
 
         {step === 3 && (
           <>
-            <p className="eyebrow">Receiver-aware, measurement-stable</p>
+            <p className="eyebrow">Choose a writing style</p>
             <h1>How should the report speak?</h1>
-            <p className="lede">This changes phrasing and order only. Scores, contradictions, and confidence stay identical.</p>
+            <p className="lede">This changes the wording and order only. Your answers and scores stay the same.</p>
             <div className="choice-grid">
               {receiverStyles.map((item) => (
                 <button
@@ -232,7 +222,7 @@ export function SetupWizard({ onComplete, onCancel }: SetupWizardProps) {
             <h1>Developmental, private, and correctable</h1>
             <div className="consent-copy">
               <p>This pilot is not a diagnosis, prediction, hiring tool, or clinically validated test.</p>
-              <p>Uncertainty is a valid answer. Proprietary chart meanings are tested as hypotheses and may be contradicted.</p>
+              <p>“Not sure” is a valid answer. Name and number meanings are compared with your answers and may not match them.</p>
               <p>Your session is saved only in this browser. You can export or delete it at any time.</p>
               {mode !== "self" && <p>This report reflects your observations and should be reviewed before sharing.</p>}
               {mode === "child-observer" && <p>Child results describe current patterns and developing skills—not adult destiny.</p>}

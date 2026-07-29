@@ -15,7 +15,7 @@
 
 ## In Progress
 
-- None.
+- Feedback Round 1 implementation is complete on its published branch and is moving through pull-request checks and merge.
 
 ## Blocked
 
@@ -28,14 +28,19 @@
 ## Tests Passing
 
 - Foundation schema, CSV, link, and validation-language checks passed.
-- ESLint, strict TypeScript, 24 unit/component tests, and production build pass.
-- Playwright: 15 passed; 7 intentionally skipped duplicate mobile cases.
+- ESLint, strict TypeScript, 48 unit/component tests, and production build pass.
+- Playwright: 22 passed; 10 intentionally skipped duplicate mobile cases.
+- Decision-making and partner-observer Communication paths complete end to end.
 - Full `npm audit`: 0 vulnerabilities.
 - Axe sample-report scan, including color contrast: no serious or critical violations.
 
-## Known Defects
+## Feedback Round 1 Repairs
 
-- No merge-blocking defect is known.
+- Answer selection no longer advances; explicit Next/Previous and exact resume are verified.
+- All 72 questions have plain-language and mode-specific wording.
+- The report answers the selected goal first and includes a complete decision module.
+- Secondary visuals are collapsed; headings and needs/sensitivity values are plain and visible.
+- Source-specific core meanings, Called Name, and PMEI details are visible in the optional founder layer.
 
 ## Deliberately Deferred
 
@@ -43,12 +48,12 @@
 
 ## Current Branch
 
-`main` after this documentation-only verification update is merged.
+`fix/plain-language-goal-first-experience`
 
 ## Current Commit
 
-Implementation merge: `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`
+Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`. Final branch SHA is recorded in the pull request.
 
 ## Pull Request Status
 
-PR #2: <https://github.com/olsonan26/Quiz-for-numbers/pull/2> — merged.
+Feedback Round 1 draft PR [#5](https://github.com/olsonan26/Quiz-for-numbers/pull/5) is open against `main`. It will be marked ready and merged only after the required checks pass.
