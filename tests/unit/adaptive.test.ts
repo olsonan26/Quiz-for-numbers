@@ -24,6 +24,7 @@ function blankSession(): AssessmentSession {
       consentedAt: now
     },
     responses: [],
+    navigation: { history: [], currentIndex: 0, draftResponses: {} },
     startedAt: now,
     updatedAt: now,
     versions: VERSIONS
@@ -39,7 +40,7 @@ function completeAdaptivePath(optionForIndex: (index: number) => string): Assess
     expect(item.options.some((option) => option.id === optionId)).toBe(true);
     session = {
       ...session,
-      responses: [...session.responses, { itemId: item.id, optionId, answeredAt: session.updatedAt }]
+      responses: [...session.responses, { itemId: item.id, itemVersion: item.version, optionId, answeredAt: session.updatedAt }]
     };
   }
   throw new Error("Adaptive path failed to stop.");
@@ -78,7 +79,7 @@ describe("adaptive engine", () => {
       seen.add(item.id);
       session = {
         ...session,
-        responses: [...session.responses, { itemId: item.id, optionId: "often", answeredAt: session.updatedAt }]
+        responses: [...session.responses, { itemId: item.id, itemVersion: item.version, optionId: "often", answeredAt: session.updatedAt }]
       };
     }
   });

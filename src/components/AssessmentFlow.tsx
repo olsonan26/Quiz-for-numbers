@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { ArrowLeft, CheckCircle2, Clock3, Save } from "lucide-react";
-import type { AssessmentSession, ResponseRecord } from "../assessment/domain";
-import { estimatedProgress, selectNextItem } from "../assessment/engine/adaptive";
+import type { AssessmentSession } from "../assessment/domain";
+import { estimatedProgress } from "../assessment/engine/adaptive";
+import { advanceNavigation, currentQuestion, previousNavigation, selectDraftAnswer, selectedOptionId } from "../assessment/engine/navigation";
 
 interface AssessmentFlowProps {
   session: AssessmentSession;
@@ -11,11 +12,10 @@ interface AssessmentFlowProps {
 }
 
 export function AssessmentFlow({ session, onChange, onPause, onReview }: AssessmentFlowProps) {
-  const [lastItemId, setLastItemId] = useState<string | null>(null);
-  const item = useMemo(() => selectNextItem(session), [session]);
+  const item = useMemo(() => currentQuestion(session), [session]);
   const progress = estimatedProgress(session);
 
-  if (!item) {
+  if (session.status === "review" || !item) {
     return (
       <main id="main-content" className="app-shell centered-shell">
         <section className="completion-card">
@@ -30,27 +30,18 @@ export function AssessmentFlow({ session, onChange, onPause, onReview }: Assessm
   }
 
   const prompt = item.promptByMode[session.profile.mode];
-  const answer = (optionId: string) => {
-    const response: ResponseRecord = { itemId: item.id, optionId, answeredAt: new Date().toISOString() };
-    const responses = [...session.responses.filter((current) => current.itemId !== item.id), response];
-    setLastItemId(item.id);
-    onChange({ ...session, responses, updatedAt: response.answeredAt });
-  };
+  const selectedOption = selectedOptionId(session, item.id);
+  const answer = (optionId: string) => onChange(selectDraftAnswer(session, optionId, new Date().toISOString()));
+  const goNext = () => onChange(advanceNavigation(session, new Date().toISOString()));
   const goBack = () => {
-    const previous = session.responses[session.responses.length - 1];
-    if (!previous) return;
-    onChange({
-      ...session,
-      responses: session.responses.slice(0, -1),
-      updatedAt: new Date().toISOString()
-    });
+    onChange(previousNavigation(session, new Date().toISOString()));
   };
 
   return (
     <main id="main-content" className="app-shell assessment-shell">
       <nav className="topbar assessment-topbar">
-        <button className="button button-ghost" onClick={session.responses.length ? goBack : onPause}>
-          <ArrowLeft size={18} aria-hidden="true" /> {session.responses.length ? "Previous" : "Home"}
+        <button className="button button-ghost" onClick={session.navigation.currentIndex ? goBack : onPause}>
+          <ArrowLeft size={18} aria-hidden="true" /> {session.navigation.currentIndex ? "Previous" : "Home"}
         </button>
         <span className="save-indicator"><Save size={16} aria-hidden="true" /> Saved locally</span>
         <button className="button button-ghost" onClick={onPause}>Pause</button>
@@ -81,9 +72,9 @@ export function AssessmentFlow({ session, onChange, onPause, onReview }: Assessm
             {item.options.map((option) => (
               <button
                 key={option.id}
-                className="answer-option"
+                className={`answer-option${selectedOption === option.id ? " is-selected" : ""}`}
                 role="radio"
-                aria-checked="false"
+                aria-checked={selectedOption === option.id}
                 onClick={() => answer(option.id)}
               >
                 <span className="answer-dot" aria-hidden="true" />
@@ -91,7 +82,10 @@ export function AssessmentFlow({ session, onChange, onPause, onReview }: Assessm
               </button>
             ))}
           </div>
-          {lastItemId && <p className="sr-only" aria-live="polite">Previous answer saved for {lastItemId}.</p>}
+          <div className="question-actions">
+            <button className="button button-primary" onClick={goNext} disabled={!selectedOption}>Next</button>
+          </div>
+          <p className="sr-only" aria-live="polite">{selectedOption ? "Answer selected. Activate Next to continue." : "Choose an answer to enable Next."}</p>
         </section>
       </section>
     </main>

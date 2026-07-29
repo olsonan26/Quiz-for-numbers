@@ -31,6 +31,7 @@ export function createDemoSession(options?: {
     },
     responses: chosen.map((item, index) => ({
       itemId: item.id,
+      itemVersion: item.version,
       optionId:
         pattern === "uncertain" && index % 5 === 0
           ? "depends"
@@ -43,6 +44,7 @@ export function createDemoSession(options?: {
               : "often",
       answeredAt: now
     })),
+    navigation: { history: chosen.map((item) => item.id), currentIndex: Math.max(0, chosen.length - 1), draftResponses: {} },
     startedAt: now,
     updatedAt: now,
     versions: VERSIONS

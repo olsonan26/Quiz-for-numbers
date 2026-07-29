@@ -32,8 +32,23 @@ export const profileContextSchema = z.object({
 
 export const responseRecordSchema = z.object({
   itemId: z.string().min(1),
+  itemVersion: z.string().min(1),
   optionId: z.string().min(1),
   answeredAt: z.string().datetime()
+});
+
+export const navigationSchema = z.object({
+  history: z.array(z.string().min(1)).min(1),
+  currentIndex: z.number().int().nonnegative(),
+  draftResponses: z.record(z.object({
+    itemId: z.string().min(1),
+    optionId: z.string().min(1),
+    selectedAt: z.string().datetime()
+  }))
+}).superRefine((navigation, context) => {
+  if (navigation.currentIndex >= navigation.history.length) {
+    context.addIssue({ code: z.ZodIssueCode.custom, message: "Current history index must exist." });
+  }
 });
 
 export const sessionSchema = z.object({
@@ -41,6 +56,7 @@ export const sessionSchema = z.object({
   status: z.enum(["in-progress", "review", "complete"]),
   profile: profileContextSchema,
   responses: z.array(responseRecordSchema),
+  navigation: navigationSchema,
   startedAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
   versions: z.record(z.string())

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight, BarChart3, BrainCircuit, Eye, LockKeyhole, RotateCcw, ShieldCheck, Sparkles } from "lucide-react";
 import type { AssessmentReport, AssessmentSession, FeedbackRecord, ProfileContext } from "./assessment/domain";
 import { VERSIONS } from "./assessment/domain";
+import { initializeNavigation } from "./assessment/engine/navigation";
 import { createDemoSession } from "./assessment/fixtures/demo";
 import { generateReport } from "./assessment/engine/report";
 import { localRepository } from "./assessment/persistence/localRepository";
@@ -15,6 +16,7 @@ type Screen = "home" | "setup" | "assessment" | "review" | "generating" | "repor
 export function App() {
   const [screen, setScreen] = useState<Screen>("home");
   const [session, setSession] = useState<AssessmentSession | null>(() => localRepository.loadSession());
+  const [migrationNotice, setMigrationNotice] = useState<string | null>(() => localRepository.getSessionMigrationNotice());
   const [report, setReport] = useState<AssessmentReport | null>(() => localRepository.listReports()[0] ?? null);
 
   const saveSession = (next: AssessmentSession) => {
@@ -29,11 +31,14 @@ export function App() {
       status: "in-progress",
       profile,
       responses: [],
+      navigation: { history: [], currentIndex: 0, draftResponses: {} },
       startedAt: now,
       updatedAt: now,
       versions: VERSIONS
     };
-    saveSession(next);
+    saveSession(initializeNavigation(next));
+    localRepository.clearSessionMigrationNotice();
+    setMigrationNotice(null);
     setScreen("assessment");
   };
 
@@ -138,6 +143,12 @@ export function App() {
         <section className="resume-banner">
           <div><RotateCcw size={22} aria-hidden="true" /><span><strong>Assessment in progress</strong>{session.responses.length} answers saved on this device.</span></div>
           <button className="button button-secondary" onClick={() => setScreen("assessment")}>Resume assessment</button>
+        </section>
+      )}
+
+      {migrationNotice && (
+        <section className="resume-banner" role="status">
+          <div><RotateCcw size={22} aria-hidden="true" /><span><strong>Please start again</strong>{migrationNotice}</span></div>
         </section>
       )}
 
