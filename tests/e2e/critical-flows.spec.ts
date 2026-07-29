@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { readFile } from "node:fs/promises";
 
 type Mode = "Myself" | "My child" | "My partner" | "Someone else";
 type Goal = "Overall understanding" | "Decision-making" | "Communication";
@@ -199,6 +200,21 @@ test("sample report works without AI, can be deleted, and passes the axe scan", 
   await expect(page.getByText(/No AI or remote service/)).toBeVisible();
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations.filter((violation) => ["critical", "serious"].includes(violation.impact ?? ""))).toEqual([]);
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: /Export JSON/ }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("Alex-human-pattern-profile.json");
+  const downloadPath = await download.path();
+  expect(downloadPath).not.toBeNull();
+  const exportedReport = JSON.parse(await readFile(downloadPath!, "utf8")) as {
+    versions: { assessment: string; itemBank: string; report: string; visualization: string };
+  };
+  expect(exportedReport.versions).toMatchObject({
+    assessment: "hue-v1.1.0",
+    itemBank: "pilot-72-v1.1.0",
+    report: "reports-v1.1.0",
+    visualization: "visuals-v1.1.0"
+  });
   page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: /Delete this report/ }).click();
   await expect(page.getByRole("heading", { name: /Understand the person/i })).toBeVisible();

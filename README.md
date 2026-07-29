@@ -64,6 +64,14 @@ Foundation PR #1 was repaired, quality-gated, and merged as
 through PR #2 as `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`. Post-merge build, critical-path,
 served-report, export, deterministic fallback, and deletion checks passed.
 
+Feedback Round 1 repaired deliberate assessment navigation, rewrote all 72 questions
+in plain language, moved the selected goal ahead of charts, simplified progressive
+disclosure and mobile layouts, and exposed source-specific LOOKS-LIKE-COSTAR meanings
+and PMEI evidence in a separate optional founder layer. PR #5 merged these changes as
+`ad4c6e26be4a44759128cf106ab23481ca731a5d`; post-merge build, 48 unit/component
+tests, 22 E2E checks, mobile/axe coverage, served-local verification, versioned JSON
+export, and deletion checks passed.
+
 ## Product standard
 
 The goal is not a longer generic personality quiz. The goal is a contextual human-understanding system that:
