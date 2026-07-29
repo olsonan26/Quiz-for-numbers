@@ -101,11 +101,13 @@ for (const mode of ["Myself", "My child", "My partner", "Someone else"] as const
   test(`${mode} completes a deterministic assessment`, async ({ page }, testInfo) => {
     test.skip(testInfo.project.name === "mobile-chromium" && mode !== "Myself", "Other modes are covered at desktop; self covers mobile.");
     await page.goto("/");
-    await completeSetup(page, mode);
+    const goal = mode === "My partner" ? "Communication" : "Overall understanding";
+    await completeSetup(page, mode, goal);
     await answerToCompletion(page);
     await page.getByRole("button", { name: /Review answers/ }).click();
     await page.getByRole("button", { name: /Make my report/ }).click();
-    await expect(page.locator("h1", { hasText: "The main patterns to understand" })).toBeVisible();
+    const heading = goal === "Communication" ? "How to make communication clearer" : "The main patterns to understand";
+    await expect(page.locator("h1", { hasText: heading })).toBeVisible();
     await expect(page.getByText(/Nothing left this browser/)).toBeVisible();
   });
 }
@@ -153,7 +155,7 @@ test("contradictory answers surface contradiction findings", async ({ page }, te
   await answerToCompletion(page, "contradictory");
   await page.getByRole("button", { name: /Review answers/ }).click();
   await page.getByRole("button", { name: /Make my report/ }).click();
-  await expect(page.getByText(/preserves that tension/i)).toBeVisible();
+  await expect(page.getByText(/shows that difference instead of hiding it/i)).toBeVisible();
   await expect(page.locator(".confidence-conflicting").first()).toBeVisible();
 });
 
