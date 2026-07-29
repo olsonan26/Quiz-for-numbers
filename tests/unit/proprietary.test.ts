@@ -10,6 +10,8 @@ import {
   yearEssenceForYear
 } from "../../src/proprietary/calculations/numerology";
 import { calculatePMEI } from "../../src/proprietary/calculations/pmei";
+import { costarProvider } from "../../src/proprietary/adapters/costarProvider";
+import { calledNameMeaningFor } from "../../src/proprietary/meanings/calledNameMeanings";
 
 describe("LOOKS-LIKE-COSTAR characterization", () => {
   it("preserves Pythagorean values A through Z", () => {
@@ -52,6 +54,16 @@ describe("LOOKS-LIKE-COSTAR characterization", () => {
     expect(pmei.qaChecksumPassed).toBe(true);
     expect(pmei.geniusPlane).toBe("emotional");
     expect(pmei.zeroPlanes).toContain("intuitive");
+    expect(pmei.tone).toEqual({ vowels: 4, consonants: 5, vowelRatio: 4 / 9 });
+    expect(pmei.crossMatches).toEqual([{ plane: "physical", totalEquals: 2 }, { plane: "mental", totalEquals: 2 }]);
+  });
+
+  it("uses the founder's distinct Called Name source table and keeps PMEI details traceable", () => {
+    const profile = costarProvider.calculateProfile({ fullName: "Alex Olson", calledName: "Alex Olson", birthDate: "1990-06-15" });
+    expect(calledNameMeaningFor(9).title).toBe("The Humanitarian");
+    expect(profile.calledName.sourceMeaning).toContain("Others see you as a compassionate and big-hearted person");
+    expect(profile.coreNumbers.find((number) => number.name === "Ultimate Goal")?.sourceMeaning).toContain("Master Builder");
+    expect(profile.traces.find((trace) => trace.id === "TRACE-PMEI")?.inputSummary).toContain("vowels");
   });
 
   it("retains representative timeline primitives for regression only", () => {
