@@ -10,6 +10,8 @@
 - Implementation PR #2 opened with the required review evidence.
 - Implementation PR #2 merged into `main` at `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`.
 - Post-merge clean install, build, unit/component tests, desktop critical paths, dependency audit, and served-production verification passed.
+- Production deployed to <https://quiz-for-numbers.vercel.app>.
+- The public deployment completed a full Pixel 5-sized assessment with all twelve result modules and no document overflow.
 
 ## In Progress
 
@@ -37,7 +39,7 @@
 
 ## Deliberately Deferred
 
-- Remote persistence, production deployment, AI narration, and future timeline features.
+- Remote persistence, AI narration, automatic GitHub-to-Vercel deployment, and future timeline features.
 
 ## Current Branch
 

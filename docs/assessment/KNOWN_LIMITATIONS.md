@@ -9,4 +9,4 @@
 - Deeper name-engine letter/pair/trio rules remain unported.
 - PMEI public founder prose is not exposed pending content review.
 - No remote sync, account, multilingual content, formal screen-reader study, or real pilot analytics exists.
-- Deployment configuration is ready for static hosting, but no third-party production deployment was authorized.
+- The public Vercel release is manually deployed. Automatic GitHub-to-Vercel deployments require adding the repository owner's GitHub login connection to the Vercel account.
