@@ -7,10 +7,11 @@
 - All sixteen implementation phases in `08_CODEX_BUILD_PLAN.md` completed.
 - Deterministic assessment, proprietary provider, local-first workflow, twelve visual modules, feedback, export, deletion, and AI-off fallback implemented.
 - Desktop, mobile, 320px, print, intermediate-state, accessibility, safety, and dependency gates completed.
+- Implementation PR #2 opened with the required review evidence.
 
 ## In Progress
 
-- Draft PR #2 GitHub Actions verification and final merge gate.
+- No implementation work remains; only the PR's final CI and merge operation.
 
 ## Blocked
 
@@ -42,8 +43,8 @@
 
 ## Current Commit
 
-Documented implementation head when PR #2 opened: `d76f3d6`
+Final implementation code and inspected fixtures: `5c25aa0`
 
 ## Pull Request Status
 
-Draft PR #2: <https://github.com/olsonan26/Quiz-for-numbers/pull/2>
+PR #2: <https://github.com/olsonan26/Quiz-for-numbers/pull/2>. GitHub is authoritative for its current draft, ready, or merged state.
