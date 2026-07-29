@@ -15,7 +15,7 @@
 
 ## In Progress
 
-- Feedback Round 1 implementation is complete locally and is moving through pull-request checks and merge.
+- Feedback Round 1 implementation is complete on its published branch and is moving through pull-request checks and merge.
 
 ## Blocked
 
@@ -56,4 +56,4 @@ Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`. Final branch SH
 
 ## Pull Request Status
 
-Not opened yet for Feedback Round 1.
+Feedback Round 1 draft PR [#5](https://github.com/olsonan26/Quiz-for-numbers/pull/5) is open against `main`. It will be marked ready and merged only after the required checks pass.
