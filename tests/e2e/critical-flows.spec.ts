@@ -95,10 +95,48 @@ test("sample report works without AI, can be deleted, and passes the axe scan", 
   await expect(page.getByRole("heading", { name: /Understand the person/i })).toBeVisible();
 });
 
-test("landing primary actions are keyboard reachable", async ({ page }) => {
+test("a complete assessment is operable through keyboard activation", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.press("Tab");
   await page.keyboard.press("Tab");
   await page.keyboard.press("Enter");
   await expect(page.getByRole("heading", { name: /Who are you understanding/ })).toBeVisible();
+
+  const activate = async (locator: ReturnType<Page["getByRole"]>) => {
+    await locator.focus();
+    await page.keyboard.press("Enter");
+  };
+
+  await activate(page.getByRole("button", { name: /^Myself/ }));
+  await activate(page.getByRole("button", { name: /Continue/ }));
+  await activate(page.getByRole("button", { name: /Overall understanding/ }));
+  await activate(page.getByRole("button", { name: /Continue/ }));
+
+  for (const [label, value] of [
+    ["Display name or nickname", "Alex"],
+    ["Full birth name", "Alex Jordan Olson"],
+    ["Called name", "Alex Olson"],
+    ["Birth date", "06151990"]
+  ] as const) {
+    const field = page.getByLabel(label);
+    await field.focus();
+    await page.keyboard.type(value);
+  }
+
+  await activate(page.getByRole("button", { name: /Continue/ }));
+  await activate(page.getByRole("button", { name: /Practical and action-oriented/ }));
+  await activate(page.getByRole("button", { name: /Continue/ }));
+  await page.getByRole("checkbox").focus();
+  await page.keyboard.press("Space");
+  await activate(page.getByRole("button", { name: /Begin assessment/ }));
+
+  for (let index = 0; index < 50; index += 1) {
+    if (await page.getByRole("heading", { name: /Review before generating results/i }).isVisible().catch(() => false)) break;
+    await page.getByRole("radio", { name: "Often" }).focus();
+    await page.keyboard.press("Enter");
+  }
+
+  await activate(page.getByRole("button", { name: /Review answers/ }));
+  await activate(page.getByRole("button", { name: /Generate my profile/ }));
+  await expect(page.getByRole("heading", { name: "Human Pattern Wheel" })).toBeVisible();
 });

@@ -4,7 +4,7 @@
 
 - Strict type checking and ESLint
 - 24 Vitest unit/component tests covering adaptation, scoring invariants, contradictions, confidence, proprietary characterization, safety, schemas, persistence, and visuals
-- Playwright desktop/mobile flows for all four modes, uncertainty, contradiction, resume, AI-off behavior, keyboard access, deletion foundations, axe-core, visual fixtures, and 320px containment
+- Playwright desktop/mobile flows for all four modes, uncertainty, contradiction, resume, AI-off behavior, full keyboard completion, deletion foundations, axe-core, visual fixtures, and 320px containment
 - Production build and full dependency audit
 
 Commands:
