@@ -372,9 +372,16 @@ input:focus, select:focus, textarea:focus { border-color: var(--sage-dark); box-
 .paired-panels > div { padding: 20px; border-radius: 16px; background: #e5ebe5; }
 .paired-panels > div:last-child { background: #eee4e6; }
 .paired-panels h3 { margin-bottom: 18px; }
-.paired-panels span { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(80,95,88,.13); font-size: .75rem; }
-.paired-panels i { width: 10px; height: 10px; border-radius: 50%; background: #889690; }
-.paired-panels i[data-band="higher"] { background: var(--sage-dark); }.paired-panels i[data-band="lower"] { background: #a7aaa4; }.paired-panels i[data-band="context-dependent"] { background: var(--ochre); }
+.paired-panels span { display: grid; grid-template-columns: 1fr auto; gap: 7px 10px; padding: 10px 0; border-bottom: 1px solid rgba(80,95,88,.13); font-size: .75rem; }
+.paired-panels em { color: var(--ink-soft); font-size: .7rem; font-style: normal; }
+.paired-panels i { grid-column: 1 / -1; height: 8px; border-radius: 99px; background: rgba(84,99,92,.14); overflow: hidden; }
+.paired-panels i u { display: block; height: 100%; border-radius: inherit; background: var(--sage-dark); text-decoration: none; }
+.paired-panels > div:last-child i u { background: var(--plum); }
+.band-legend { color: var(--ink-soft); font-size: .73rem; margin: 16px 0 0; }
+.decision-style-list { display: grid; gap: 10px; }
+.decision-style-list > div { align-items: center; background: var(--paper-deep); border-radius: 12px; display: grid; gap: 4px 12px; grid-template-columns: 1fr auto; padding: 14px; }
+.decision-style-list > div span { color: var(--sage-dark); font-weight: 800; text-transform: capitalize; }
+.decision-style-list > div small { color: var(--ink-soft); grid-column: 1 / -1; }
 .interaction-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .interaction-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; }
 .interaction-card > span { color: var(--sage-dark); font-size: .65rem; font-weight: 800; text-transform: uppercase; }
