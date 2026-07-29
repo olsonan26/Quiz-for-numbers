@@ -1,40 +1,59 @@
 # Codex Start Here
 
-Use the following instruction when assigning this repository to Codex:
+The full assignment lives in this repository. Do not paste the complete build specification into the Codex task.
 
-> You are the lead product engineer, assessment architect, psychometric research assistant, data-visualization designer, and safety-minded implementation agent for this repository.
+## Copy-ready Codex launch prompt
+
+> Work in `https://github.com/olsonan26/Quiz-for-numbers.git`.
 >
-> Begin by reading `AGENTS.md` and every file under `research/human-understanding-engine/`. Treat those files as the governing specification.
+> Begin by reading `AGENTS.md`, then read every file under `research/human-understanding-engine/` in numbered order. Those files are the governing specification and contain the full product, research, visual, testing, proprietary-integration, branch, pull-request, and merge requirements.
 >
-> Your assignment is to build the complete V1 Human Pattern Profile described there: a professional, mobile-first, adaptive human-understanding quiz with deterministic scoring, baseline-versus-stress analysis, chart-hypothesis comparison, contradiction analysis, explainable confidence, deep visual results, actionable guidance, save/resume, export, deletion, feedback, accessibility, automated tests, and a complete non-AI fallback report.
+> Also inspect `https://github.com/olsonan26/LOOKS-LIKE-COSTAR.git` as the read-only source for Alex Olson’s existing number/name/Lettrology calculations, meanings, PMEI structures, and interpretations. Follow `10_PROPRIETARY_ENGINE_INTEGRATION.md`; do not invent replacements and do not push changes to that source repository.
 >
-> Do not merely write a plan. Build the application and package the implementation. Create a new implementation branch from `feat/human-understanding-foundation`. Do not merge it automatically.
+> Review and repair foundation Draft PR #1 first. Merge it into `main` only after the foundation quality gate in `11_EXECUTION_AND_MERGE_CONTRACT.md` passes and permissions allow it. Then create the V1 implementation branch from updated `main`, build the entire application through every phase in `08_CODEX_BUILD_PLAN.md`, open the implementation PR, run every required quality gate, and merge only when those gates pass. If permissions block a merge, leave the PR completely ready and report the exact manual action required.
 >
-> Complete the phases in `research/human-understanding-engine/08_CODEX_BUILD_PLAN.md` in order. Maintain `docs/assessment/IMPLEMENTATION_STATUS.md` and `docs/assessment/DECISION_LOG.md` as durable memory. Continue through phases without requesting approval for every step. Pause only for destructive decisions, unavailable access, missing proprietary rules that block a specific component, or legally sensitive founder decisions.
->
-> Do not invent proprietary number/name meanings. Create a typed placeholder adapter, mock hypotheses, and a precise founder-input list, then continue building all other functionality.
->
-> The quiz is a developmental instrument, not a clinical diagnosis and not yet scientifically validated. AI is an optional narrator, never the scoring engine. Every score and graph must be traceable to versioned structured evidence. Chart hypotheses must be allowed to fail. Graphs must be accessible and must not imply unsupported precision.
->
-> At completion, run all build, lint, type, unit, component, end-to-end, safety, accessibility, and visual checks. Produce the final report required by `08_CODEX_BUILD_PLAN.md`, including exact branch, commits, screenshots, tests, known limitations, validation status, and founder input still required.
+> Do not return another plan. Use the repository as durable memory, maintain the required status and decision files, build the working application, run the tests, inspect the screenshots, and provide the final completion report defined in the repository.
 
-## Suggested first Codex task
+## Why the launch prompt is short
 
-For better reviewability, the first task may be scoped as:
+Codex should use:
 
-> Complete Phases 0–3 only: initialize the production stack, create the implementation documentation, define runtime schemas, and build the versioned pilot item-bank structure with fixtures. Do not build the full UI yet. Commit the work and report decisions, tests, and founder-input questions.
+```text
+AGENTS.md
+  → concise operating rules
 
-Then continue with:
+research/human-understanding-engine/
+  → complete research and product specification
 
-1. adaptive, scoring, chart-adapter, contradiction, and confidence engines
-2. assessment UX and local-first persistence
-3. deterministic results and all professional visualizations
-4. optional AI narrative enhancement, safety, export, and feedback
-5. full QA, screenshots, accessibility, documentation, and final audit
+docs/assessment/
+  → implementation decisions and durable project memory
 
-## Non-negotiable result modules
+LOOKS-LIKE-COSTAR
+  → read-only founder-authored calculation and interpretation source
+```
 
-Codex should not mark V1 complete without:
+The short launch prompt prevents important instructions from competing for conversational context while keeping the complete requirements versioned and reviewable in Git.
+
+## Required result standard
+
+Codex must not mark V1 complete without:
+
+- adaptive self, child, partner, and other-person paths
+- approximately 12 constructs
+- approximately 36–48 adaptive questions from a larger candidate bank
+- deterministic scoring
+- baseline-versus-stress analysis
+- proprietary chart comparison with provenance
+- contradiction analysis
+- explainable confidence
+- professional results and accessible graphs
+- practical recommendations
+- save/resume, export, feedback, and deletion
+- complete non-AI fallback
+- privacy and safety enforcement
+- automated tests and visual QA
+
+Required visual modules include:
 
 - Human Pattern Wheel
 - Baseline vs Stress Profile
@@ -49,4 +68,4 @@ Codex should not mark V1 complete without:
 - Environment Fit Dashboard
 - “How to Work With Me” share card
 
-Each visual requires a text/table alternative and traceable structured data.
+Each visual requires deterministic source data, evidence traceability, explainable uncertainty, mobile readability, and an accessible text/table alternative.
