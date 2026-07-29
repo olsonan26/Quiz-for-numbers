@@ -1,5 +1,6 @@
 import { ArrowLeft, Sparkles } from "lucide-react";
 import type { AssessmentSession } from "../assessment/domain";
+import { goalById } from "../assessment/data/goals";
 import { itemById } from "../assessment/data/items";
 
 interface ReviewAnswersProps {
@@ -10,6 +11,7 @@ interface ReviewAnswersProps {
 }
 
 export function ReviewAnswers({ session, onChange, onBack, onGenerate }: ReviewAnswersProps) {
+  const goal = goalById.get(session.profile.goal);
   return (
     <main id="main-content" className="app-shell review-shell">
       <nav className="topbar">
@@ -18,9 +20,14 @@ export function ReviewAnswers({ session, onChange, onBack, onGenerate }: ReviewA
         <span className="save-indicator">Saved locally</span>
       </nav>
       <header className="page-header">
-        <p className="eyebrow">Review</p>
-        <h1>Check the evidence before scoring</h1>
-        <p>Changing an answer reruns the same deterministic rules. Receiver tone and proprietary meanings never change behavioral scores.</p>
+        <p className="eyebrow">Check your answers</p>
+        <h1>Make sure your answers feel right</h1>
+        <p>You can change any answer below before making the report.</p>
+        <aside className="goal-reminder">
+          <strong>{goal?.reminder}</strong>
+          <span>{goal?.reportPromise}</span>
+          <small>Next, we will score these answers and show that direct answer first.</small>
+        </aside>
       </header>
       <div className="review-list">
         {session.responses.map((response, index) => {
@@ -52,8 +59,8 @@ export function ReviewAnswers({ session, onChange, onBack, onGenerate }: ReviewA
         })}
       </div>
       <div className="sticky-action">
-        <div><strong>Ready to generate?</strong><span>No AI or network call is required.</span></div>
-        <button className="button button-primary" onClick={onGenerate}><Sparkles size={18} aria-hidden="true" /> Generate my profile</button>
+        <div><strong>Ready for your report?</strong><span>Your answers stay in this browser.</span></div>
+        <button className="button button-primary" onClick={onGenerate}><Sparkles size={18} aria-hidden="true" /> Make my report</button>
       </div>
     </main>
   );
