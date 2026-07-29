@@ -10,7 +10,7 @@
 
 ## In Progress
 
-- Implementation pull-request publication and GitHub Actions verification.
+- Draft PR #2 GitHub Actions verification and final merge gate.
 
 ## Blocked
 
@@ -42,8 +42,8 @@
 
 ## Current Commit
 
-Pre-documentation implementation head: `ab4b8e3`
+Documented implementation head when PR #2 opened: `d76f3d6`
 
 ## Pull Request Status
 
-Draft PR will be opened after this durable documentation commit is pushed.
+Draft PR #2: <https://github.com/olsonan26/Quiz-for-numbers/pull/2>
