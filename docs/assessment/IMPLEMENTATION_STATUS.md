@@ -8,10 +8,12 @@
 - Deterministic assessment, proprietary provider, local-first workflow, twelve visual modules, feedback, export, deletion, and AI-off fallback implemented.
 - Desktop, mobile, 320px, print, intermediate-state, accessibility, safety, and dependency gates completed.
 - Implementation PR #2 opened with the required review evidence.
+- Implementation PR #2 merged into `main` at `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`.
+- Post-merge clean install, build, unit/component tests, desktop critical paths, dependency audit, and served-production verification passed.
 
 ## In Progress
 
-- No implementation work remains; only the PR's final CI and merge operation.
+- None.
 
 ## Blocked
 
@@ -39,12 +41,12 @@
 
 ## Current Branch
 
-`feat/human-understanding-quiz-v1`
+`main` after this documentation-only verification update is merged.
 
 ## Current Commit
 
-Final implementation code and inspected fixtures: `5c25aa0`
+Implementation merge: `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`
 
 ## Pull Request Status
 
-PR #2: <https://github.com/olsonan26/Quiz-for-numbers/pull/2>. GitHub is authoritative for its current draft, ready, or merged state.
+PR #2: <https://github.com/olsonan26/Quiz-for-numbers/pull/2> — merged.
