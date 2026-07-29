@@ -80,7 +80,7 @@ button, a { transition: background-color 180ms ease, color 180ms ease, border-co
 .button-danger { color: var(--danger); background: transparent; border: 1px solid #cfa6a1; }
 .button-danger:hover { background: #f4e2df; }
 .button-large { min-height: 54px; padding: 14px 24px; }
-.compact-button { min-height: 42px; padding: 9px 17px; }
+.compact-button { min-height: 44px; padding: 9px 17px; }
 
 .home-shell, .app-shell, .report-shell { min-height: 100vh; }
 .generating-shell {
@@ -506,7 +506,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--sage-dark); box-
   .brand strong, .brand-button strong { display: none; }
   .home-nav .button-ghost, .report-nav .button-ghost { padding: 10px; font-size: 0; gap: 0; }
   .home-hero { margin: 8px; min-height: auto; padding: 52px 21px 30px; border-radius: 26px; }
-  .hero-copy h1 { font-size: clamp(3.1rem, 16vw, 5rem); }
+  .hero-copy h1 { max-width: 100%; font-size: clamp(2.75rem, 14vw, 4rem); }
   .home-lede { font-size: 1rem; }
   .hero-actions { display: grid; }.hero-actions .button { width: 100%; }
   .trust-row { display: grid; justify-content: start; text-align: left; margin: 28px auto; width: fit-content; }

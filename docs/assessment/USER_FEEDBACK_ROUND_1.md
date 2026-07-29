@@ -38,6 +38,10 @@ The desktop end-to-end path completed the full adaptive assessment, repeated the
 
 The partner-observer end-to-end path completed the full adaptive assessment with the Communication goal and verified the goal-first communication heading. The communication sample report was also inspected at desktop, 390px mobile, and 320px narrow widths.
 
+### Mobile phone follow-up
+
+A live 390×844 browser check against the LAN URL found that the landing headline extended beyond the usable 375px content width even though document-level overflow remained hidden. The mobile headline now fits inside the viewport, and the compact navigation button meets the 44px minimum touch-target height. The mobile visual test asserts all three conditions so the clipping cannot silently return.
+
 ## Screen inspection
 
 Reviewed fixtures:
