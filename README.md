@@ -52,7 +52,9 @@ research/human-understanding-engine/10_PROPRIETARY_ENGINE_INTEGRATION.md
 
 Foundation PR #1 was repaired, quality-gated, and merged as
 `54f1cfa0431c265f552f4543d7305aabdf30047d`. The V1 implementation was built on
-`feat/human-understanding-quiz-v1` from that exact merged foundation.
+`feat/human-understanding-quiz-v1` from that exact merged foundation and merged
+through PR #2 as `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`. Post-merge build, critical-path,
+served-report, export, deterministic fallback, and deletion checks passed.
 
 ## Product standard
 

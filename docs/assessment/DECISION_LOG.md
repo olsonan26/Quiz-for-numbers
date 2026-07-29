@@ -23,3 +23,7 @@ The Vite, Vitest, ESLint, React plugin, globals, and jsdom toolchain was upgrade
 ## 2026-07-29 — Visual QA evidence
 
 Playwright fixtures cover landing, mode and goal selection, a representative question, an adaptive follow-up, deterministic result transition, every report visualization, desktop, mobile, print, and 320px width. These images were manually inspected; the 320px test also asserts no document-body overflow.
+
+## 2026-07-29 — Post-merge verification
+
+Implementation PR #2 merged as `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`. A clean install on merged `main` passed the production build, 24 unit/component tests, 9 desktop critical-path tests, and a zero-vulnerability audit. The built application was then served locally and completed through a fixture assessment; all twelve visual modules rendered, the deterministic no-AI message remained present, exported JSON retained assessment and proprietary-source versions, and deletion removed the saved report.
