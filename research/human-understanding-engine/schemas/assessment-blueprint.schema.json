@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quiz-for-numbers.local/schemas/assessment-blueprint.schema.json",
+  "title": "Assessment Blueprint",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "status",
+    "name",
+    "modes",
+    "constructs",
+    "items",
+    "branchRules",
+    "scoringVersion",
+    "interpretationVersion"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["developmental", "pilot", "validated-for-limited-use", "retired"]
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "modes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["self", "child-observer", "partner-observer", "other-observer"]
+      }
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "communication",
+          "motivation",
+          "emotional-reactions",
+          "conflict",
+          "decision-making",
+          "stress-patterns",
+          "strengths",
+          "direction",
+          "overall"
+        ]
+      }
+    },
+    "constructs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/construct" }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/questionItem" }
+    },
+    "branchRules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/branchRule" }
+    },
+    "chartHypotheses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/chartHypothesis" }
+    },
+    "minimumQuestions": { "type": "integer", "minimum": 1 },
+    "typicalQuestions": { "type": "integer", "minimum": 1 },
+    "maximumQuestions": { "type": "integer", "minimum": 1 },
+    "scoringVersion": { "type": "string", "minLength": 1 },
+    "interpretationVersion": { "type": "string", "minLength": 1 },
+    "chartMappingVersion": { "type": "string" },
+    "safetyRuleVersion": { "type": "string" }
+  },
+  "$defs": {
+    "construct": {
+      "type": "object",
+      "required": ["id", "version", "name", "definition", "facets", "minimumEvidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" },
+        "name": { "type": "string" },
+        "plainLanguageName": { "type": "string" },
+        "definition": { "type": "string" },
+        "facets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "definition"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "definition": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "minimumEvidence": { "type": "integer", "minimum": 1 },
+        "evidenceGrade": {
+          "type": "string",
+          "enum": ["A", "B", "C", "D", "P", "U"]
+        },
+        "validationStatus": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "responseOption": {
+      "type": "object",
+      "required": ["id", "label"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "scores": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["constructId", "facetId", "value", "context"],
+            "properties": {
+              "constructId": { "type": "string" },
+              "facetId": { "type": "string" },
+              "value": { "type": "number" },
+              "weight": { "type": "number", "default": 1 },
+              "context": {
+                "type": "string",
+                "enum": ["baseline", "stress", "relationship", "conflict", "decision", "general"]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "isUncertain": { "type": "boolean", "default": false },
+        "isSkipped": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false
+    },
+    "questionItem": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "status",
+        "promptByMode",
+        "responseType",
+        "options",
+        "constructIds",
+        "sourceType",
+        "licensingStatus"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" },
+        "status": { "type": "string", "enum": ["draft", "reviewed", "pilot", "retired"] },
+        "promptByMode": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "string" }
+        },
+        "responseType": {
+          "type": "string",
+          "enum": ["likert", "frequency", "single-select", "paired-choice", "ranking", "open-text"]
+        },
+        "options": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/responseOption" }
+        },
+        "constructIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "facetIds": { "type": "array", "items": { "type": "string" } },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["baseline", "stress", "relationship", "conflict", "decision", "general"]
+          }
+        },
+        "goalPriority": { "type": "array", "items": { "type": "string" } },
+        "minimumAge": { "type": "integer", "minimum": 0 },
+        "maximumAge": { "type": "integer", "minimum": 0 },
+        "chartHypothesisIds": { "type": "array", "items": { "type": "string" } },
+        "sourceType": {
+          "type": "string",
+          "enum": ["public-domain-adaptation", "research-inspired", "original"]
+        },
+        "sourceReference": { "type": "string" },
+        "licensingStatus": {
+          "type": "string",
+          "enum": ["public-domain", "original", "licensed", "requires-review", "prohibited"]
+        },
+        "socialDesirabilityRisk": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "readingLevelNote": { "type": "string" },
+        "safetyTags": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "branchRule": {
+      "type": "object",
+      "required": ["id", "version", "condition", "action"],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" },
+        "condition": { "type": "object" },
+        "action": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["prioritize-item", "exclude-item", "ask-follow-up", "stop-construct", "limit-confidence"]
+            },
+            "targetId": { "type": "string" }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "chartHypothesis": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "status",
+        "sourceRuleId",
+        "constructId",
+        "expectedDirection",
+        "testingItemIds"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" },
+        "status": { "type": "string", "enum": ["placeholder", "active", "retired"] },
+        "sourceRuleId": { "type": "string" },
+        "constructId": { "type": "string" },
+        "facetId": { "type": "string" },
+        "expectedDirection": { "type": "string", "enum": ["lower", "moderate", "higher", "context-dependent"] },
+        "expectedContexts": { "type": "array", "items": { "type": "string" } },
+        "expectedStressExpression": { "type": "string" },
+        "testingItemIds": { "type": "array", "items": { "type": "string" } },
+        "founderInputRequired": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

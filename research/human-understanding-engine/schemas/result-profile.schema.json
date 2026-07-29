@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quiz-for-numbers.local/schemas/result-profile.schema.json",
+  "title": "Human Understanding Result Profile",
+  "type": "object",
+  "required": [
+    "id",
+    "profileId",
+    "assessmentId",
+    "assessmentVersion",
+    "completedAt",
+    "mode",
+    "goal",
+    "constructResults",
+    "contradictions",
+    "chartAlignments",
+    "interactions",
+    "recommendations",
+    "visualizations",
+    "validationStatus"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "profileId": { "type": "string" },
+    "assessmentId": { "type": "string" },
+    "assessmentVersion": { "type": "string" },
+    "itemBankVersion": { "type": "string" },
+    "scoringVersion": { "type": "string" },
+    "chartMappingVersion": { "type": "string" },
+    "interpretationVersion": { "type": "string" },
+    "reportVersion": { "type": "string" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "mode": {
+      "type": "string",
+      "enum": ["self", "child-observer", "partner-observer", "other-observer"]
+    },
+    "goal": { "type": "string" },
+    "receiverStyle": {
+      "type": "string",
+      "enum": ["direct", "gentle", "analytical", "practical", "strengths-first"]
+    },
+    "headline": { "type": "string" },
+    "summary": { "type": "string" },
+    "constructResults": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/constructResult" }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/contradiction" }
+    },
+    "chartAlignments": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/chartAlignment" }
+    },
+    "interactions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/interaction" }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/recommendation" }
+    },
+    "visualizations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/visualization" }
+    },
+    "validationStatus": { "$ref": "#/$defs/validationStatus" },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "feedbackStatus": { "type": "string", "enum": ["not-requested", "pending", "submitted"] }
+  },
+  "$defs": {
+    "confidence": {
+      "type": "object",
+      "required": ["label", "reasons"],
+      "properties": {
+        "label": {
+          "type": "string",
+          "enum": ["strong", "moderate", "tentative", "conflicting", "insufficient"]
+        },
+        "internalScore": { "type": "number" },
+        "reasons": { "type": "array", "items": { "type": "string" } },
+        "coverage": { "type": "number" },
+        "consistency": { "type": "number" },
+        "contextStability": { "type": "number" },
+        "responseQuality": { "type": "number" },
+        "contradictionPenalty": { "type": "number" },
+        "stateContaminationPenalty": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "constructResult": {
+      "type": "object",
+      "required": [
+        "constructId",
+        "label",
+        "expressionBand",
+        "confidence",
+        "evidenceIds",
+        "baselineNarrative",
+        "stressNarrative"
+      ],
+      "properties": {
+        "constructId": { "type": "string" },
+        "label": { "type": "string" },
+        "expressionBand": {
+          "type": "string",
+          "enum": ["lower", "moderate", "higher", "context-dependent", "conflicting", "insufficient"]
+        },
+        "internalScore": { "type": "number" },
+        "baselineBand": {
+          "type": "string",
+          "enum": ["lower", "moderate", "higher", "context-dependent", "insufficient"]
+        },
+        "stressBand": {
+          "type": "string",
+          "enum": ["lower", "moderate", "higher", "context-dependent", "insufficient"]
+        },
+        "shiftDirection": {
+          "type": "string",
+          "enum": ["lower", "stable", "higher", "mixed", "unknown"]
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "evidenceIds": { "type": "array", "items": { "type": "string" } },
+        "contradictionIds": { "type": "array", "items": { "type": "string" } },
+        "baselineNarrative": { "type": "string" },
+        "stressNarrative": { "type": "string" },
+        "misunderstandingNarrative": { "type": "string" },
+        "practicalImplication": { "type": "string" },
+        "limitation": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "contradiction": {
+      "type": "object",
+      "required": ["id", "constructId", "type", "severity", "sourceA", "sourceB", "status", "confidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "constructId": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "item-vs-item",
+            "baseline-vs-stress",
+            "self-vs-observer",
+            "chart-vs-behavior",
+            "preference-vs-choice",
+            "context-vs-context",
+            "current-vs-longstanding"
+          ]
+        },
+        "severity": { "type": "string", "enum": ["minor", "moderate", "strong"] },
+        "sourceA": { "type": "string" },
+        "sourceB": { "type": "string" },
+        "possibleExplanationIds": { "type": "array", "items": { "type": "string" } },
+        "status": {
+          "type": "string",
+          "enum": [
+            "unresolved",
+            "context-dependent",
+            "stress-shift",
+            "adaptation-likely",
+            "state-likely",
+            "observer-limitation",
+            "chart-not-supported",
+            "insufficient"
+          ]
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "followUpItemIds": { "type": "array", "items": { "type": "string" } },
+        "userNarrative": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "chartAlignment": {
+      "type": "object",
+      "required": ["hypothesisId", "constructId", "classification", "confidence", "evidenceIds"],
+      "properties": {
+        "hypothesisId": { "type": "string" },
+        "constructId": { "type": "string" },
+        "classification": {
+          "type": "string",
+          "enum": ["supported", "partial", "contextual", "contradicted", "unresolved"]
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "evidenceIds": { "type": "array", "items": { "type": "string" } },
+        "summary": { "type": "string" },
+        "founderInputRequired": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "interaction": {
+      "type": "object",
+      "required": ["id", "ruleId", "constructIds", "confidence", "strengthExpression", "frictionExpression"],
+      "properties": {
+        "id": { "type": "string" },
+        "ruleId": { "type": "string" },
+        "constructIds": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "strengthExpression": { "type": "string" },
+        "frictionExpression": { "type": "string" },
+        "contextConditions": { "type": "array", "items": { "type": "string" } },
+        "actionLeverage": { "type": "string" },
+        "recommendationIds": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "recommendation": {
+      "type": "object",
+      "required": ["id", "findingIds", "title", "action", "confidence", "impactBand", "effortBand"],
+      "properties": {
+        "id": { "type": "string" },
+        "findingIds": { "type": "array", "items": { "type": "string" } },
+        "title": { "type": "string" },
+        "trigger": { "type": "string" },
+        "action": { "type": "string" },
+        "exampleLanguage": { "type": "string" },
+        "avoid": { "type": "string" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "impactBand": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "effortBand": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "trialPeriod": { "type": "string" },
+        "successSignal": { "type": "string" },
+        "isExperiment": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "visualization": {
+      "type": "object",
+      "required": ["id", "type", "title", "questionAnswered", "data", "textAlternative"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pattern-wheel",
+            "baseline-stress",
+            "motivation-hierarchy",
+            "communication-profile",
+            "conflict-map",
+            "needs-sensitivities",
+            "interaction-map",
+            "chart-alignment",
+            "confidence-panel",
+            "growth-matrix",
+            "environment-fit",
+            "share-card"
+          ]
+        },
+        "title": { "type": "string" },
+        "questionAnswered": { "type": "string" },
+        "data": { "type": "array", "items": { "type": "object" } },
+        "textAlternative": { "type": "string" },
+        "tableAlternative": { "type": "array", "items": { "type": "object" } }
+      },
+      "additionalProperties": false
+    },
+    "validationStatus": {
+      "type": "object",
+      "required": ["instrumentStatus", "knownLimitations"],
+      "properties": {
+        "instrumentStatus": {
+          "type": "string",
+          "enum": ["developmental", "pilot", "validated-for-limited-use"]
+        },
+        "validatedPopulations": { "type": "array", "items": { "type": "string" } },
+        "unvalidatedPopulations": { "type": "array", "items": { "type": "string" } },
+        "knownLimitations": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
