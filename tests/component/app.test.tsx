@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 import { App } from "../../src/App";
@@ -13,27 +13,36 @@ describe("application experience", () => {
     expect(screen.getByRole("button", { name: /Clear all local data/i })).toBeInTheDocument();
   });
 
-  it("renders every required visualization and its accessible table alternative", async () => {
+  it("starts with a small useful report and keeps the remaining visual profile optional", async () => {
     const user = userEvent.setup();
     render(<App />);
     await user.click(screen.getByRole("button", { name: /Preview a sample report/i }));
-    expect(screen.getByRole("heading", { name: /Connecting patterns with context/i })).toBeInTheDocument();
-    await screen.findByRole("heading", { name: "Human Pattern Wheel" });
-    const headings = [
-      "Human Pattern Wheel",
-      "Baseline vs Stress Profile",
-      "Motivation Hierarchy",
-      "Communication Profile",
-      "Conflict Process Map",
-      "Needs and Sensitivities Balance",
-      "Pattern Interaction Map",
-      "Chart vs Behavior Alignment",
-      "Evidence and Confidence Panel",
-      "Growth Leverage Matrix",
-      "Environment Fit Dashboard",
-      "How to Work With Me"
-    ];
-    headings.forEach((name) => expect(screen.getByRole("heading", { name })).toBeInTheDocument());
-    expect(screen.getAllByText("View accessible data table")).toHaveLength(12);
+    await screen.findAllByRole("heading", { name: /How to make communication clearer/i });
+
+    expect(screen.getByText(/The direct answer:/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Conflict Process Map" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "How You Communicate" })).toBeVisible();
+
+    const disclosure = screen.getByText("Explore your full profile").closest("details");
+    expect(disclosure).not.toBeNull();
+    expect(disclosure).not.toHaveAttribute("open");
+    expect(within(disclosure!).getByText(/You do not need them to use the main answer/i)).toBeInTheDocument();
+
+    await user.click(screen.getByText("Explore your full profile"));
+    expect(disclosure).toHaveAttribute("open");
+    expect(screen.getByRole("heading", { name: "Your Main Patterns" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: /What You Need and Notice/i })).toBeVisible();
+    expect(screen.getAllByText("View accessible data table").length).toBeGreaterThanOrEqual(10);
+  });
+
+  it("uses plain recommendation labels", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(screen.getByRole("button", { name: /Preview a sample report/i }));
+    await screen.findAllByRole("heading", { name: /How to make communication clearer/i });
+
+    ["Try this", "Example", "Avoid this", "Why it helps"].forEach((label) => {
+      expect(screen.getAllByRole("heading", { name: label }).length).toBeGreaterThan(0);
+    });
   });
 });

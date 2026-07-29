@@ -8,12 +8,12 @@ test("captures landing and full report visual fixtures", async ({ page }, testIn
     fullPage: true
   });
   await page.getByRole("button", { name: /Preview a sample report/ }).click();
-  await expect(page.getByRole("heading", { name: /Connecting patterns with context/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Turning your answers into useful next steps/i })).toBeVisible();
   await page.screenshot({
     path: `docs/assessment/screenshots/loading-result-${testInfo.project.name}.png`,
     fullPage: true
   });
-  await expect(page.getByRole("heading", { name: "Human Pattern Wheel" })).toBeVisible();
+  await expect(page.locator("h1", { hasText: "How to make communication clearer" })).toBeVisible();
   await page.screenshot({
     path: `docs/assessment/screenshots/report-${testInfo.project.name}.png`,
     fullPage: true
@@ -28,7 +28,7 @@ test("captures landing and full report visual fixtures", async ({ page }, testIn
     await page.setViewportSize({ width: 320, height: 900 });
     await page.goto("/");
     await page.getByRole("button", { name: /Preview a sample report/ }).click();
-    await expect(page.getByRole("heading", { name: "Human Pattern Wheel" })).toBeVisible();
+    await expect(page.locator("h1", { hasText: "How to make communication clearer" })).toBeVisible();
     const hasBodyOverflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth
     );
@@ -63,6 +63,7 @@ test("captures setup, question, and adaptive follow-up states", async ({ page },
 
   for (let index = 0; index < 36; index += 1) {
     await page.getByRole("radio", { name: "It depends on the situation" }).click();
+    await page.getByRole("button", { name: "Next" }).click();
   }
   await expect(page.getByText(/36 answered/)).toBeVisible();
   await page.evaluate(() => {
