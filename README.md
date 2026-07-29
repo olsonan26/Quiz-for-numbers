@@ -2,6 +2,14 @@
 
 Working V1 of a professional Human Understanding Engine that combines founder-authored number/name/Lettrology hypotheses with behavioral evidence, context, contradiction analysis, explainable confidence, and accessible visual reports.
 
+## Public assessment
+
+The mobile-ready production release is available at:
+
+<https://quiz-for-numbers.vercel.app>
+
+Assessment answers and reports remain in that device's browser storage. They are not sent to Vercel, an AI provider, analytics, or a remote database.
+
 ## Run locally
 
 ```powershell
