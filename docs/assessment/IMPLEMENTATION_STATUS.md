@@ -17,7 +17,7 @@
 
 ## In Progress
 
-- Feedback Round 1 post-merge evidence is being recorded through a documentation and regression-test pull request.
+- Feedback Round 1 post-merge evidence is being recorded through PR #6.
 
 ## Blocked
 
@@ -58,4 +58,4 @@ Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`. Feedback Round 
 
 ## Pull Request Status
 
-Feedback Round 1 PR [#5](https://github.com/olsonan26/Quiz-for-numbers/pull/5) passed all required checks and merged into `main`. The post-merge evidence PR is pending.
+Feedback Round 1 PR [#5](https://github.com/olsonan26/Quiz-for-numbers/pull/5) passed all required checks and merged into `main`. Post-merge evidence PR [#6](https://github.com/olsonan26/Quiz-for-numbers/pull/6) is open against `main`.
