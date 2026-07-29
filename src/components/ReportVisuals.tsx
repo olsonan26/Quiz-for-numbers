@@ -195,8 +195,8 @@ export function ConflictMap({ report }: { report: AssessmentReport }) {
         {steps.map((step, index) => <li key={step}><span>{index + 1}</span><strong>{step}</strong></li>)}
       </ol>
       <div className="split-callout">
-        <div><span>Helpful response</span><p>Name the specific issue early and agree on a return time if regulation drops.</p></div>
-        <div><span>Likely friction</span><p>Global judgments, forced immediacy, or interpreting space as indifference.</p></div>
+        <div><span>Helpful response</span><p>Name the specific issue early and agree when to return if either person is too upset to continue.</p></div>
+        <div><span>Likely friction</span><p>Judging the whole person, forcing an immediate answer, or treating a pause as lack of care.</p></div>
       </div>
     </VisualSection>
   );

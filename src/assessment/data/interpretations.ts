@@ -20,7 +20,7 @@ export const interpretationTemplates: InterpretationTemplate[] = [
     high: "Social contact often supplies momentum and perspective.",
     moderate: "Social engagement appears selective and sensitive to setting.",
     low: "Solitude and lower-stimulation contact often protect capacity.",
-    action: "Match the communication setting to available social energy and allow recovery after demanding contact.",
+    action: "Match the communication setting to the amount of social energy you have, and allow quiet time after demanding contact.",
     example: "Would one-to-one, a small group, or time to think first work best?",
     avoid: "Treating recovery needs as rejection or lack of interest.",
     whyItHelps: "A better setting protects attention and makes the conversation easier to use.",

@@ -289,7 +289,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--sage-dark); box-
 .sticky-action span { color: #bdc9c4; font-size: 0.78rem; }
 .sticky-action .button-primary { background: var(--cream); color: var(--ink); }
 
-.report-shell { background: #efede6; }
+.report-shell { background: #efede6; overflow-x: clip; }
 .report-nav { position: relative; max-width: 1400px; }
 .report-hero { max-width: 1340px; min-height: 580px; margin: 14px auto 0; padding: 70px; border-radius: 36px; background:
   linear-gradient(110deg, rgba(27,38,36,.98), rgba(47,67,61,.95)),
@@ -366,7 +366,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--sage-dark); box-
 .report-module h2 { margin: 0 0 10px; font-size: clamp(1.8rem, 3vw, 2.7rem); }
 .report-module > header > p:last-child { color: var(--ink-soft); font-size: .9rem; margin-bottom: 0; }
 .visual-module:nth-child(2n + 3) { background: #f3efe5; }
-.data-alternative { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16px; }
+.data-alternative { margin-top: 24px; border-top: 1px solid var(--line); max-width: 100%; overflow-x: auto; padding-top: 16px; }
 .data-alternative summary, .evidence-ledger summary { color: var(--sage-dark); font-size: .8rem; font-weight: 800; }
 .data-alternative table { width: 100%; margin-top: 14px; border-collapse: collapse; font-size: .76rem; }
 .data-alternative th, .data-alternative td { border-bottom: 1px solid var(--line); padding: 9px 5px; text-align: left; vertical-align: top; }
@@ -534,7 +534,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--sage-dark); box-
   .review-row select { grid-column: 2; }
   .sticky-action > div { display: none; }.sticky-action .button { width: 100%; }
   .report-hero { margin: 8px; padding: 42px 22px; border-radius: 26px; }
-  .report-hero h1 { font-size: clamp(2.65rem, 15vw, 3.5rem); overflow-wrap: anywhere; }
+  .report-hero h1 { font-size: clamp(2.3rem, 11.5vw, 3rem); hyphens: none; overflow-wrap: normal; word-break: normal; }
   .report-summary { font-size: .95rem; }
   .hero-insight p { font-size: 1.3rem; overflow-wrap: anywhere; }
   .section-nav { justify-content: flex-start; margin: -16px 12px 28px; }

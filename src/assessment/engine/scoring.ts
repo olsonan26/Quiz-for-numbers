@@ -81,7 +81,10 @@ export function scoreAssessment(session: AssessmentSession): ConstructResult[] {
     });
 
     const subject = session.profile.mode === "self" ? "You" : session.profile.displayName;
-    const baselineNarrative = `${subject} ${language[baseBand]} in ordinary conditions.`;
+    const ordinaryLanguage = session.profile.mode === "self"
+      ? language[baseBand].replace(/^shows/, "show").replace(/^has /, "have ")
+      : language[baseBand];
+    const baselineNarrative = `${subject} ${ordinaryLanguage} in ordinary conditions.`;
     const stressNarrative =
       stressBand === "insufficient"
         ? "There are not enough stress answers to describe a clear change."

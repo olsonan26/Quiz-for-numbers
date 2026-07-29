@@ -148,10 +148,10 @@ function reportHeadline(results: ConstructResult[]): string {
 function receiverOpening(session: AssessmentSession): string {
   const openings = {
     direct: "The clearest pattern is this:",
-    gentle: "A useful way to understand the pattern is this:",
-    analytical: "Across the available evidence, the strongest synthesis is:",
-    practical: "The pattern with the most practical leverage is:",
-    "strengths-first": "The strongest capacity visible in the profile is:"
+    gentle: "One pattern may be especially useful:",
+    analytical: "The answers most strongly point to this:",
+    practical: "The most useful pattern to act on is:",
+    "strengths-first": "The strongest supported pattern is:"
   };
   return openings[session.profile.receiverStyle];
 }
@@ -187,8 +187,8 @@ export function generateReport(session: AssessmentSession): AssessmentReport {
   const tension = contradictions[0];
   const summary = `${receiverOpening(session)} ${strongest?.baselineNarrative ?? "The evidence remains limited."} ${
     tension
-      ? "At least one pattern changes by context or source, so the report preserves that tension instead of averaging it away."
-      : "The available evidence is relatively coherent, while still remaining developmental rather than definitive."
+      ? "Some answers change by situation or source, so the report shows that difference instead of hiding it."
+      : "The answers mostly agree with one another, but the result is still a working guide rather than a final label."
   }`;
 
   const report: AssessmentReport = {
