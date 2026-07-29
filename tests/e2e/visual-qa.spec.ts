@@ -3,6 +3,25 @@ import { expect, test } from "@playwright/test";
 test("captures landing and full report visual fixtures", async ({ page }, testInfo) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /Understand the person/i })).toBeVisible();
+  if (testInfo.project.name === "mobile-chromium") {
+    const mobileLanding = await page.evaluate(() => {
+      const heading = document.querySelector("h1");
+      const beginButton = Array.from(document.querySelectorAll("button")).find((button) =>
+        (button.textContent ?? "").trim().startsWith("Begin")
+      );
+      const headingBounds = heading?.getBoundingClientRect();
+      const beginBounds = beginButton?.getBoundingClientRect();
+      return {
+        clientWidth: document.documentElement.clientWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+        headingRight: headingBounds?.right ?? Number.POSITIVE_INFINITY,
+        beginHeight: beginBounds?.height ?? 0
+      };
+    });
+    expect(mobileLanding.scrollWidth).toBeLessThanOrEqual(mobileLanding.clientWidth);
+    expect(mobileLanding.headingRight).toBeLessThanOrEqual(mobileLanding.clientWidth);
+    expect(mobileLanding.beginHeight).toBeGreaterThanOrEqual(44);
+  }
   await page.screenshot({
     path: `docs/assessment/screenshots/landing-${testInfo.project.name}.png`,
     fullPage: true
