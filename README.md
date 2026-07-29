@@ -1,6 +1,25 @@
 # Quiz for Numbers
 
-Research and product workspace for a professional Human Understanding Engine that combines founder-authored number/name/Lettrology hypotheses with behavioral science, contextual questions, contradiction analysis, explainable confidence, and deep visual reports.
+Working V1 of a professional Human Understanding Engine that combines founder-authored number/name/Lettrology hypotheses with behavioral evidence, context, contradiction analysis, explainable confidence, and accessible visual reports.
+
+## Run locally
+
+```powershell
+npm install
+npm run dev
+```
+
+Open the local URL printed by Vite (normally `http://localhost:5173`).
+
+Quality gates:
+
+```powershell
+npm run check
+npm run test:e2e
+npm audit
+```
+
+The application requires no account, API key, database, AI provider, or network service after dependencies are installed.
 
 ## Codex
 
@@ -31,15 +50,9 @@ research/human-understanding-engine/10_PROPRIETARY_ENGINE_INTEGRATION.md
 
 ## Workflow
 
-The foundation currently lives on:
-
-```text
-feat/human-understanding-foundation
-```
-
-Draft PR #1 contains the research, schemas, build plan, proprietary-source integration, execution/merge contract, visual result requirements, and world-class benchmark.
-
-Codex must review and repair the foundation first, merge it only after its quality gate passes, then create a separate V1 implementation branch and build the complete application according to the repository specifications.
+Foundation PR #1 was repaired, quality-gated, and merged as
+`54f1cfa0431c265f552f4543d7305aabdf30047d`. The V1 implementation was built on
+`feat/human-understanding-quiz-v1` from that exact merged foundation.
 
 ## Product standard
 
