@@ -11,4 +11,6 @@ Current counts:
 - Typical path: 42
 - Maximum adaptive path: 48
 
-The wording remains pilot material pending expert review, cognitive interviews, reading-level analysis, and item-behavior studies.
+All 72 items were rewritten and reviewed across all four modes for the `1.1.0` plain-language pilot. The bank now contains 288 explicitly authored mode prompts instead of mechanical pronoun replacement. See `QUESTION_COPY_AUDIT.md` for every original/revised pair, reading concern, meaning risk, observer/child note, and review status.
+
+The rewrite preserves all item IDs, constructs, current facets, contexts, score values, score weights, goal priorities, follow-up flags, and bank order. It does not claim to solve the pre-existing direction, facet, comparison-scale, or double-barreled-item problems listed in the copy audit. Cognitive interviews and measurement review remain required.
