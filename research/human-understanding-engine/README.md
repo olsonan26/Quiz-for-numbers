@@ -1,10 +1,10 @@
 # Human Understanding Engine Research Package
 
-This directory is the product, research, psychometric, ethical, and implementation foundation for the Quiz for Numbers project.
+This directory is the product, research, psychometric, ethical, proprietary-integration, execution, and implementation foundation for the Quiz for Numbers project.
 
 ## North star
 
-> Build a human-understanding engine that combines proprietary name- and number-based hypotheses with behavioral evidence, context, contradiction analysis, and practical guidance so users can understand themselves and the people who matter most.
+> Build a human-understanding engine that combines founder-authored name- and number-based hypotheses with behavioral evidence, context, contradiction analysis, and practical guidance so users can understand themselves and the people who matter most.
 
 The product is not merely a personality labeler. It should explain:
 
@@ -20,7 +20,7 @@ The product is not merely a personality labeler. It should explain:
 ## Governing model
 
 ```text
-Chart hypotheses
+Founder-authored chart hypotheses
 + lived behavior
 + observer context
 + current conditions
@@ -28,6 +28,20 @@ Chart hypotheses
 + contradictions
 = contextual human understanding
 ```
+
+## Repository model
+
+### Product repository
+
+`olsonan26/Quiz-for-numbers`
+
+Contains the assessment application, structured hypotheses, tests, visual reports, research documents, and implementation history.
+
+### Read-only proprietary source
+
+`olsonan26/LOOKS-LIKE-COSTAR`
+
+Contains Alex Olson’s current number/name calculations, meanings, interpretations, Lettrology/PMEI structures, timeline logic, and existing application concepts. Follow `10_PROPRIETARY_ENGINE_INTEGRATION.md`.
 
 ## Document map
 
@@ -41,6 +55,9 @@ Chart hypotheses
 - `07_ETHICS_PRIVACY_AND_VALIDATION.md` — prohibited uses, consent, privacy, and validation program
 - `08_CODEX_BUILD_PLAN.md` — phased implementation instructions and acceptance criteria
 - `09_SOURCE_CORPUS_AND_RESEARCH_BACKLOG.md` — instructors, frameworks, primary-source research tasks, and backlog
+- `10_PROPRIETARY_ENGINE_INTEGRATION.md` — how to audit, port, test, version, and use the founder calculation/meaning source
+- `11_EXECUTION_AND_MERGE_CONTRACT.md` — branch, PR, quality-gate, merge, and completion workflow
+- `12_WORLD_CLASS_BENCHMARK.md` — internal standard for surpassing leading commercial assessments through measurable quality
 - `schemas/assessment-blueprint.schema.json` — implementation-facing assessment schema
 - `schemas/result-profile.schema.json` — implementation-facing result schema
 
@@ -59,11 +76,15 @@ Every scientific or proprietary statement must be tagged internally as one of:
 
 - Do not describe the pilot as clinically or scientifically validated.
 - Do not force chart interpretations to be correct.
+- Do not invent founder calculations or meanings that exist in the source repository.
 - Do not use AI as the hidden measurement engine.
 - Do not diagnose, predict catastrophe, or permanently label children.
 - Do not let beautiful graphs imply unsupported certainty.
 - Do not build the entire theory of humanity before shipping one useful vertical slice.
+- Do not claim world-best status before comparative evidence supports it.
 
-## Intended Codex starting instruction
+## Codex launch
 
-> Read `AGENTS.md` and every file in this directory. Then complete the repository audit, lock the V1 build specification, create the data schemas and test fixtures, and build the product in the phases defined in `08_CODEX_BUILD_PLAN.md`. Keep all scoring deterministic, all content versioned, and all graph values traceable to structured evidence.
+Use the concise task in the root `CODEX_START_HERE.md`.
+
+Codex must read all numbered documents here before implementation. The full assignment lives in Git so the launch prompt can remain short, clear, and reviewable.
