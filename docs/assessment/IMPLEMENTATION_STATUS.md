@@ -15,7 +15,7 @@
 
 ## In Progress
 
-- None.
+- Feedback Round 1: plain-language questions, deliberate Next/Previous navigation, goal-first reports, visible number/name meanings, and progressive visual disclosure.
 
 ## Blocked
 
@@ -35,7 +35,11 @@
 
 ## Known Defects
 
-- No merge-blocking defect is known.
+- Answer selection currently advances immediately and does not expose a correct selected radio state.
+- Previous currently removes the last response instead of navigating without data loss.
+- The report does not answer the selected goal before presenting the full dashboard.
+- Number/name meanings and PMEI calculations are computed but are mostly buried in technical trace and alignment views.
+- Several questions, recommendations, headings, and symbols require plain-language repair.
 
 ## Deliberately Deferred
 
@@ -43,12 +47,12 @@
 
 ## Current Branch
 
-`main` after this documentation-only verification update is merged.
+`fix/plain-language-goal-first-experience`
 
 ## Current Commit
 
-Implementation merge: `36fcd94cdfe8c96a2c1e8e0077d0128d2d63204c`
+Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`
 
 ## Pull Request Status
 
-PR #2: <https://github.com/olsonan26/Quiz-for-numbers/pull/2> — merged.
+Not opened yet for Feedback Round 1.
