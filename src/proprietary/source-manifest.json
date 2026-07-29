@@ -1,0 +1,17 @@
+{
+  "sourceRepository": "olsonan26/LOOKS-LIKE-COSTAR",
+  "sourceCommit": "023140de4ac9ebad8a804b4c984337135e77b19a",
+  "portedFiles": [
+    "constants.ts",
+    "services/numerology.ts",
+    "services/pmeiEngine.ts",
+    "services/nameNumberDescriptions.ts",
+    "services/calledNameDescriptions.ts",
+    "types.ts"
+  ],
+  "calculationVersion": "legacy-costar-1.0.0",
+  "interpretationVersion": "founder-meanings-1.0.0",
+  "portDate": "2026-07-29",
+  "behavior": "preserved for documented V1 calculations",
+  "reviewedByFounder": false
+}
