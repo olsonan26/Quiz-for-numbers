@@ -12,10 +12,12 @@
 - Post-merge clean install, build, unit/component tests, desktop critical paths, dependency audit, and served-production verification passed.
 - Production deployed to <https://quiz-for-numbers.vercel.app>.
 - The public deployment completed a full Pixel 5-sized assessment with all twelve result modules and no document overflow.
+- Feedback Round 1 PR #5 passed its GitHub quality workflow and merged into `main` at `ad4c6e26be4a44759128cf106ab23481ca731a5d`.
+- Post-merge verification on that exact commit passed lint, strict type checking, 48 unit/component tests, production build, 22 E2E checks, served-local verification, versioned JSON export, and deletion.
 
 ## In Progress
 
-- Feedback Round 1 implementation is complete on its published branch and is moving through pull-request checks and merge.
+- Feedback Round 1 post-merge evidence is being recorded through a documentation and regression-test pull request.
 
 ## Blocked
 
@@ -48,12 +50,12 @@
 
 ## Current Branch
 
-`fix/plain-language-goal-first-experience`
+`codex/post-merge-feedback-round-1`
 
 ## Current Commit
 
-Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`. Final branch SHA is recorded in the pull request.
+Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`. Feedback Round 1 merge: `ad4c6e26be4a44759128cf106ab23481ca731a5d`.
 
 ## Pull Request Status
 
-Feedback Round 1 draft PR [#5](https://github.com/olsonan26/Quiz-for-numbers/pull/5) is open against `main`. It will be marked ready and merged only after the required checks pass.
+Feedback Round 1 PR [#5](https://github.com/olsonan26/Quiz-for-numbers/pull/5) passed all required checks and merged into `main`. The post-merge evidence PR is pending.
