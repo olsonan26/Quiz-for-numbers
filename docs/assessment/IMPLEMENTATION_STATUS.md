@@ -15,7 +15,7 @@
 
 ## In Progress
 
-- Feedback Round 1: plain-language questions, deliberate Next/Previous navigation, goal-first reports, visible number/name meanings, and progressive visual disclosure.
+- Feedback Round 1 implementation is complete locally and is moving through pull-request checks and merge.
 
 ## Blocked
 
@@ -28,18 +28,19 @@
 ## Tests Passing
 
 - Foundation schema, CSV, link, and validation-language checks passed.
-- ESLint, strict TypeScript, 24 unit/component tests, and production build pass.
-- Playwright: 15 passed; 7 intentionally skipped duplicate mobile cases.
+- ESLint, strict TypeScript, 48 unit/component tests, and production build pass.
+- Playwright: 22 passed; 10 intentionally skipped duplicate mobile cases.
+- Decision-making and partner-observer Communication paths complete end to end.
 - Full `npm audit`: 0 vulnerabilities.
 - Axe sample-report scan, including color contrast: no serious or critical violations.
 
-## Known Defects
+## Feedback Round 1 Repairs
 
-- Answer selection currently advances immediately and does not expose a correct selected radio state.
-- Previous currently removes the last response instead of navigating without data loss.
-- The report does not answer the selected goal before presenting the full dashboard.
-- Number/name meanings and PMEI calculations are computed but are mostly buried in technical trace and alignment views.
-- Several questions, recommendations, headings, and symbols require plain-language repair.
+- Answer selection no longer advances; explicit Next/Previous and exact resume are verified.
+- All 72 questions have plain-language and mode-specific wording.
+- The report answers the selected goal first and includes a complete decision module.
+- Secondary visuals are collapsed; headings and needs/sensitivity values are plain and visible.
+- Source-specific core meanings, Called Name, and PMEI details are visible in the optional founder layer.
 
 ## Deliberately Deferred
 
@@ -51,7 +52,7 @@
 
 ## Current Commit
 
-Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`
+Feedback-round base: `efa826f4c0cf8dca3101baa4c082af56473b97a9`. Final branch SHA is recorded in the pull request.
 
 ## Pull Request Status
 
